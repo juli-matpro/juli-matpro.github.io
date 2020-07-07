@@ -1,121 +1,141 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Juli-matpro</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
-</head>
-<body>
-	
-	<!--  -->
-	<div class="simpleslide100">
-		<div class="simpleslide100-item bg-img1" style="background-image: url('images/bg04.jpg');"></div>
-		<div class="simpleslide100-item bg-img1" style="background-image: url('images/bg05.jpg');"></div>
-		<div class="simpleslide100-item bg-img1" style="background-image: url('images/bg06.jpg');"></div>
-	</div>
+<!DOCTYPE HTML>
+<!--
+	Theory by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Juli-MatPro</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			.text-warning{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
 
-	<div class="size1 overlay1">
-		<!--  -->
-		<div class="size1 flex-col-c-m p-l-15 p-r-15 p-t-50 p-b-50">
-			<h3 class="l1-txt1 txt-center p-b-25">
-				Juli-matpro
-			</h3>
-
-			<p class="m2-txt1 txt-center p-b-48">
-				Juli-matpro is Currenty under construction. Check back soon!
-			</p>
-
-<!--			<div class="flex-w flex-c-m cd100 p-b-33">
-				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
-					<span class="l2-txt1 p-b-9 days">35</span>
-					<span class="s2-txt1">Days</span>
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="index.html" class="logo">Juli-MatPro</a>
+					<nav id="nav">
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>
+			</header>
 
-				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
-					<span class="l2-txt1 p-b-9 hours">17</span>
-					<span class="s2-txt1">Hours</span>
+		<!-- Banner -->
+			<section id="banner">
+				<h1>Juli-MatPro</h1>
+				<p>Economic and Technical Analyzer for land based wells</p>
+			</section>
+
+		<!-- One -->
+			<section id="one" class="wrapper">
+				<div class="inner">
+					<h2>Well Analyzer</h2>
+
+					<div id="wells">
+
+					</div>
+
+
+					<h3>Fill Well Details</h3>
+					<form id="well-form">
+					<div class="flex flex-4">
+						<article>
+							FE(A/S)<input name="feas" id="feas" placeholder="FE(A/S)" type="text" required/>
+						</article>
+						<article>
+							R-Factor<input name="rfac" id="rfac" placeholder="R-Factor" type="text" required/>
+						</article>
+						<article>
+							PI(A/S)<input name="pias" id="pias" placeholder="PI(A/S)" type="text" required/>
+						</article>
+					</div>
+					<br/>
+					<button name="submit" type="submit"class="special" id="submit" data-wellid="1">Add Well</button>
+					</form>
+
+					<br>
+					<div style="align-content: right; text-align: end;">
+						<input name="submit" type="submit" value="Analyze Wells" id="submit" data-wellid="1" onclick="analyzeWells();"/>
+					</div>
+
+					<div id ="result" style="display: none;">
+						<div id="matrix">
+							<h4>Matrix Acidizing Wells</h4>
+							<p>No Wells Present Here.</p>
+							<!--<p>The following wells are not qualified for Matrix Acidizing and were taking away from the process</p>
+							<ul>
+								<li class="text-warning">Well 1</li>
+							</ul>-->
+						</div>
+
+
+						<br/><br />
+						<div class="flex flex-2">
+							<article>
+								<h4>Ranking of Well based on Technical Parameters</h4>
+								<table>
+									<thead>
+										<tr>
+											<th>Rank</th>
+											<th>Well</th>
+										</tr>
+									</thead>
+									<tbody id="table-body">
+									</tbody>
+									<tfoot>
+										<tr>
+											<td colspan="2"></td>
+											<td></td>
+										</tr>
+									</tfoot>
+								</table>
+								<br><br>
+							</article>
+
+
+							<article id="chartContainer">
+								
+							</article>
+						</div>
+					</div>
+
 				</div>
+			</section>
 
-				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
-					<span class="l2-txt1 p-b-9 minutes">50</span>
-					<span class="s2-txt1">Minutes</span>
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="flex">
+						<div class="copyright">
+							&copy; All Rights Reserved: <h2><strong>Juli-MatPro</strong></h2>
+						</div>
+						<ul class="icons">
+							<li><a href="#" onclick="return false;" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" onclick="return false;" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" onclick="return false;" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+							<li><a href="#" onclick="return false;" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+							<li><a href="#" onclick="return false;" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+						</ul>
+					</div>
 				</div>
+			</footer>
 
-				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
-					<span class="l2-txt1 p-b-9 seconds">39</span>
-					<span class="s2-txt1">Seconds</span>
-				</div>
-			</div>-->
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+			<script src="assets/js/well.js"></script>
+			<script src="assets/js/juli-matpro-main.js"></script>
 
-			<!--<form class="w-full flex-w flex-c-m validate-form">
-
-				<div class="wrap-input100 validate-input where1" data-validate = "Valid email is required: ex@abc.xyz">
-					<input class="input100 placeholder0 s2-txt2" type="text" name="email" placeholder="Enter Email Address">
-					<span class="focus-input100"></span>
-				</div>
-				
-				
-				<button class="flex-c-m size3 s2-txt3 how-btn1 trans-04 where1">
-					Subscribe
-				</button>
-			</form>-->
-		</div>
-	</div>
-
-
-
-	
-
-<!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/countdowntime/moment.min.js"></script>
-	<script src="vendor/countdowntime/moment-timezone.min.js"></script>
-	<script src="vendor/countdowntime/moment-timezone-with-data.min.js"></script>
-	<script src="vendor/countdowntime/countdowntime.js"></script>
-	<script>
-		$('.cd100').countdown100({
-			/*Set Endtime here*/
-			/*Endtime must be > current time*/
-			endtimeYear: 0,
-			endtimeMonth: 0,
-			endtimeDate: 35,
-			endtimeHours: 18,
-			endtimeMinutes: 0,
-			endtimeSeconds: 0,
-			timeZone: "" 
-			// ex:  timeZone: "America/New_York"
-			//go to " http://momentjs.com/timezone/ " to get timezone
-		});
-	</script>
-<!--===============================================================================================-->
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
-
-</body>
+	</body>
 </html>
