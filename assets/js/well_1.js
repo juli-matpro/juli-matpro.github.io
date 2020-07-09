@@ -68,26 +68,26 @@ class Well {
         return false;
     }
 
-    static indexOfMaxWell(arr) {
-        if (arr.length === 0) {
+    static indexOfMaxWell(wells) {
+        if (wells.length === 0) {
             return -1;
         }
 
-        var max = arr[0].pias;
+        var max = wells[0].pias;
         var maxIndex = 0;
 
-        for (var i = 1; i < arr.length; i++) {
-            if (arr[i].pias > max) {
+        for (var i = 1; i < wells.length; i++) {
+            if (wells[i].pias > max) {
                 maxIndex = i;
-                max = arr[i].pias;
+                max = wells[i].pias;
             }
         }
         return maxIndex;
     }
 
-    static createWell(form) {
+    static createWell() {
         return new Well(
-            _id('submit').getAttribute('data-wellid'),
+            _id('submitwell').getAttribute('data-wellid'),
             _id('feas').value,
             _id('rfac').value,
             _id('pias').value

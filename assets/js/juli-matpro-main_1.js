@@ -14,6 +14,7 @@ const wellArray = new Array();
 
 
 _id('well-form').onsubmit = () =>
+// const addWell = () =>
 {
     wellArray.push(Well.createWell());
     resetWell();
@@ -22,16 +23,19 @@ _id('well-form').onsubmit = () =>
 
 const resetWell = () =>
 {
-    Well.wellInputs.forEach(function (item, index) {
+    Well.wellInputs.forEach(function (item) {
         _id(item).value="";
       });
-      _id('submit').setAttribute('data-wellid', (parseInt(_id('submit').getAttribute('data-wellid')) + 1) );
+      _id('submitwell').setAttribute(
+          'data-wellid',
+           (parseInt(_id('submitwell').getAttribute('data-wellid')) + 1)
+        );
 
 }
 
 const analyzeWells = () =>
 {
-
+   
     // wellArray.push(
     //     new Well(1, 7.13, 0.62, 88.26)
     // );
@@ -46,25 +50,12 @@ const analyzeWells = () =>
 
     // wellArray.push(
     //     new Well(4, 1.69, 0.70, 10.04)
-        
     // );
-
-    // [44, 55, 56, 66]
-    // foreach(){
-
-    // }
-    // wellArray.forEach
 
     let wellRank = new Array();
     let wellWithDefects = new Array();
     let matrixWells = new Array();
-    let rr = false;
-    // wellArray.splice(0,2);
-    // console.log(Well.indexOfMaxWell(wellArray));
-    // console.log(wellArray);
-    // return;
-    // Loop through non Default/
-    // while(rr ==  false) {
+
     for(
         let max = Well.indexOfMaxWell(wellArray);
         wellArray.length > 0;
@@ -94,57 +85,72 @@ const analyzeWells = () =>
             wellRank.push(wellWithDefects[max]);
         }
     }
-    // wellRank.forEach(element => console.log(element));
-
-
-    console.log("Defects................................");
 
     matrixWells.forEach(element => console.log(element));
-    _id('result').style.display = "block";
+    // _id('result').style.display = "block";
     let ddd = new Array();
     let tableString = "";
     let i = 1;
     wellRank.forEach(function(item) {
-        ddd.push({y : item.pias, label: `Well ${item.id}`});
+        // ddd.push({y : item.pias, label: `Well ${item.id}`});
+        ddd.push([`Well ${item.id}` , item.pias]);
         tableString +=
          `
-            <tr>    
+            <tr>
             <td>Rank ${i}</td>
             <td>Well ${item.id}</td>
             </tr>
         `
         ++i;
     });
+    _id('result').style.display = "block";
+    _id('submit').style.display = "none";
     _id('table-body').innerHTML += tableString;
-    // console.log(wellRank);
+    console.log(ddd);
+    renderChart(ddd);
 
-    chart.options.data[0].dataPoints = ddd;
-    chart.render();
     return false;
 }
 
-// this.id = id;
-// this.feas = feas;
-// this.rfac = rfac;
-// this.pias = pias;
-window.onload  = () =>{
-    chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: true,
-        theme: "light2", // "light1", "light2", "dark1", "dark2"
-        title:{
-            text: "Well Production Gain"
-        },
-        axisY: {
-            title: "Production Gain(MMbbl)"
-        },
-        data: [{        
-            type: "column",  
-            showInLegend: true, 
-            legendMarkerColor: "grey",
-            legendText: "MMbbl = one million barrels",
-            dataPoints: []
-        }]
-    });
-    chart.render();
+const renderChart = (points) =>
+{
+    // chart = new CanvasJS.Chart("chartContainer", {
+    //     animationEnabled: true,
+    //     theme: "light2", // "light1", "light2", "dark1", "dark2"
+    //     title:{
+    //         text: "Well Production Gain"
+    //     },
+    //     axisY: {
+    //         title: "Production Gain(MMbbl)"
+    //     },
+    //     data: [{        
+    //         type: "column",  
+    //         showInLegend: true, 
+    //         legendMarkerColor: "grey",
+    //         legendText: "MMbbl = one million barrels",
+    //         dataPoints: points
+    //     }]
+    // });
+    // chart.render();    
 
+
+        // set the data
+        var data = {
+            header: ["Name", "Death toll"],
+            rows: points
+        };
+ 
+        // create the chart
+        var chart = anychart.column();
+ 
+        // add the data
+        chart.data(data);
+ 
+        // set the chart title
+        chart.title("Well Production Gain");
+ 
+        // draw
+        chart.container("chartContainer");
+        chart.draw();
+ 
 }
