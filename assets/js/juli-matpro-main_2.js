@@ -1,4 +1,3 @@
-var chart;
 
 /*Helper Functions*/
 const _id = (id="") => {
@@ -13,9 +12,11 @@ const _id = (id="") => {
 const wellArray = new Array();
 
 
-_id('well-form').onsubmit = () =>
 // const addWell = () =>
+_id('well-form').onsubmit = () =>
 {
+    // creates well
+    // create a disabled representation of the well
     wellArray.push(Well.createWell());
     resetWell();
     return false;
@@ -23,13 +24,16 @@ _id('well-form').onsubmit = () =>
 
 const resetWell = () =>
 {
+    // sets the wells value to blank
     Well.wellInputs.forEach(function (item) {
         _id(item).value="";
       });
-      _id('submitwell').setAttribute(
-          'data-wellid',
-           (parseInt(_id('submitwell').getAttribute('data-wellid')) + 1)
-        );
+
+    // increments the well Id
+  _id('submitwell').setAttribute(
+      'data-wellid',
+       (parseInt(_id('submitwell').getAttribute('data-wellid')) + 1)
+    );
 
 }
 
@@ -37,24 +41,25 @@ const analyzeWells = () =>
 {
    
     // wellArray.push(
-    //     new Well(1, 7.13, 0.62, 88.26)
+    //     new Well(1, 7.13, 0.62, 88.26, 19.00, 0, 0, 0, 4, 6, 0, 1, 0, 0, 0)
     // );
-
+    //
     // wellArray.push(
-    //     new Well(2, 3.83, 0.65, 31.82)
+    //     new Well(2, 3.83, 0.65, 31.82, 10.90, 0, 0, 0, 5, 0, 2, 1, 0, 0, 0)
     // );
-
+    //
     // wellArray.push(
-    //     new Well(3, 3.91, 0.59, 16.12)
+    //     new Well(3, 3.91, 0.59, 16.12, 9.49, 0, 0, 0, 5, 6, 0, 1, 1, 0, 0)
     // );
-
+    //
     // wellArray.push(
-    //     new Well(4, 1.69, 0.70, 10.04)
+    //     new Well(4, 1.69, 0.70, 10.04, 5.59, 0, 0, 0, 5, 0, 1, 1, 0, 0, 0)
     // );
 
-    let wellRank = new Array();
-    let wellWithDefects = new Array();
-    let matrixWells = new Array();
+    let wellRank = [];
+    let wellWithDefects = [];
+    let matrixWells = [];
+
 
     for(
         let max = Well.indexOfMaxWell(wellArray);
@@ -62,6 +67,7 @@ const analyzeWells = () =>
         wellArray.splice(max, 1)
         )
     {
+        // Check for wells that are not qualified and push to matrix wells
         if(!wellArray[max].isQualified()) {
             matrixWells.push(wellArray[max]);
             continue;
@@ -70,12 +76,12 @@ const analyzeWells = () =>
             wellWithDefects.push(wellArray[max]);
             continue;
         }
-
         wellRank.push(wellArray[max]);
     }
 
-
+    // Add Well with defects to well rank
     if(wellWithDefects.length > 0) {
+        // Loops through the wells with defects from highest pias(production) to lowest
         for(
             let max = Well.indexOfMaxWell(wellWithDefects);
             wellWithDefects.length > 0;
@@ -86,28 +92,76 @@ const analyzeWells = () =>
         }
     }
 
+
+
+    //
+    // // Add Wells from matrix wells (that don't qalify) to well rank
+    // if(matrixWells.length > 0) {
+    //     // Loops through the wells with defects from highest pias(production) to lowest
+    //     for(
+    //         let max = Well.indexOfMaxWell(matrixWells);
+    //         matrixWells.length > 0;
+    //         matrixWells.splice(max,1)
+    //     )
+    //     {
+    //         wellRank.push(matrixWells[max]);
+    //     }
+    // }
+
+
+    let easyWorkOverWells = [];
+    let diffWorkOverWells = [];
+
+    let easyWorkOverTableString = "";
+    let diffWorkOverTableString = "";
+
+
+    // Check for cof of wells and add to appropriate arrays
+    wellRank.forEach(function(item) {
+        if(item.cof < 50) {
+            easyWorkOverWells.push(item);
+            easyWorkOverTableString +=
+            `
+            <tr>
+            <td>Well ${item.id}</td>
+            <td>${item.cof}</td>
+            </tr>
+            `;
+            return;
+        }
+        diffWorkOverWells.push(item);
+        diffWorkOverTableString +=
+            `
+                <tr>
+                <td>Well ${item.id}</td>
+                <td>${item.cof}</td>
+                </tr>
+            `;
+        });
+
+
     matrixWells.forEach(element => console.log(element));
-    // _id('result').style.display = "block";
-    let ddd = new Array();
-    let tableString = "";
+    let wellRankPoints = [];
+    let techParamtableString = "";
     let i = 1;
     wellRank.forEach(function(item) {
-        // ddd.push({y : item.pias, label: `Well ${item.id}`});
-        ddd.push([`Well ${item.id}` , item.pias]);
-        tableString +=
+        wellRankPoints.push([`Well ${item.id}` , item.pias]);
+        techParamtableString +=
          `
             <tr>
             <td>Rank ${i}</td>
             <td>Well ${item.id}</td>
             </tr>
-        `
+        `;
         ++i;
     });
     _id('result').style.display = "block";
     _id('submit').style.display = "none";
-    _id('table-body').innerHTML += tableString;
-    console.log(ddd);
-    renderChart(ddd);
+    _id('well-rank-table').innerHTML += techParamtableString;
+    _id('easy-workover-rank-table').innerHTML += easyWorkOverTableString;
+    _id('diff-workover-rank-table').innerHTML += diffWorkOverTableString;
+    console.log(wellRankPoints);
+    renderChart(wellRankPoints);
 
     return false;
 }

@@ -14,6 +14,13 @@
 			.text-warning{
 				color: red;
 			}
+			small{
+				font-size: .8rem;
+			}
+			body {
+				font-family: Roboto,serif;
+				color: #4d4d4d;
+			}
 		</style>
 	</head>
 	<body>
@@ -43,7 +50,6 @@
 
 					</div>
 
-
 					<h3>Fill Well Details</h3>
 					<form id="well-form">
 					<div class="flex flex-4">
@@ -55,6 +61,39 @@
 						</article>
 						<article>
 							PI(A/S)<input name="pias" id="pias" placeholder="PI(A/S)" type="text" required/>
+						</article>
+						<article>
+							SR(Simulation Ratio)<input name="sr" id="sr" placeholder="SR(Simulation Ratio)" type="text" required/>
+						</article>
+						<article>
+							a(Gravel pack linear)<input name="gpl" id="gpl" placeholder="a(Gravel pack linear" type="text" required/>
+						</article>
+						<article>
+							g(Gravel pack index)<input name="gpi" id="gpi" placeholder="g(Gravel pack index)" type="text" required/>
+						</article>
+						<article>
+							p(Packer index)<input name="pi" id="pi" placeholder="p(Packer index)" type="text" required/>
+						</article>
+						<article>
+							d(Workover depth index)<input name="wdi" id="wdi" placeholder="d(Workover depth index)" type="text" required/>
+						</article>
+						<article>
+							m(Mandrel index)<input name="mi" id="mi" placeholder="m(Mandrel index)" type="text" required/>
+						</article>
+						<article>
+							r(Age of last re-entry)<input name="alr" id="alr" placeholder="r(Age of last re-entry)" type="text" required/>
+						</article>
+						<article>
+							x(Age of deviation)<input name="aod" id="aod" placeholder="x(Age of deviation)" type="text" required/>
+						</article>
+						<article>
+							t(Lost wireline index)<input name="lwi" id="lwi" placeholder="t(Lost wireline index)" type="text" required/>
+						</article>
+						<article>
+							c(Casing patch index)<input name="cpi" id="cpi" placeholder="c(Casing patch index)" type="text" required/>
+						</article>
+						<article>
+							w(Well head repair index)<input name="whr" id="whr" placeholder="w(Well head repair index)" type="text" required/>
 						</article>
 					</div>
 					<br/>
@@ -88,7 +127,7 @@
 											<th>Well</th>
 										</tr>
 									</thead>
-									<tbody id="table-body">
+									<tbody id="well-rank-table">
 									</tbody>
 									<tfoot>
 										<tr>
@@ -103,6 +142,54 @@
 
 							<article id="chartContainer">
 								
+							</article>
+						</div>
+						<br><br>
+						<div class="flex flex-2">
+							<article>
+								<h4>Wells with Easy  WorkOver Complexity</h4>
+								<table>
+									<thead>
+									<tr>
+										<th>Well</th>
+										<th>COF</th>
+									</tr>
+									</thead>
+									<tbody id="easy-workover-rank-table">
+
+									</tbody>
+									<tfoot>
+									<tr>
+										<td colspan="2"></td>
+										<td></td>
+									</tr>
+									</tfoot>
+								</table>
+								<br><br>
+							</article>
+
+
+							<article id="ddff">
+								<h4>Wells with Difficult  WorkOver Complexity</h4>
+								<table>
+									<thead>
+									<tr>
+										<th>Well</th>
+										<th>COF</th>
+									</tr>
+									</thead>
+									<tbody id="diff-workover-rank-table">
+
+									</tbody>
+									<tfoot>
+									<tr>
+										<td colspan="2"></td>
+										<td></td>
+									</tr>
+									</tfoot>
+								</table>
+								<br><br>
+
 							</article>
 						</div>
 						<br/>
@@ -140,9 +227,9 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
-			<script src="assets/js/well_1.js"></script>
+			<script src="assets/js/well_3.js"></script>
 			<!--<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>-->
-			<script src="assets/js/juli-matpro-main_1.js"></script>
+			<script src="assets/js/juli-matpro-main_2.js"></script>
 
 	</body>
 </html>
