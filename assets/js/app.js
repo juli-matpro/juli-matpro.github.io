@@ -489,8 +489,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['months'],
+  props: ["months"],
   data: function data() {
     return {
       visibilityStatus: false
@@ -498,7 +502,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     visibilityStatusText: function visibilityStatusText() {
-      return this.visibilityStatus ? 'View Less Months' : 'View More Months';
+      return this.visibilityStatus ? "View Less Months" : "View More Months";
     }
   },
   methods: {
@@ -525,6 +529,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_WellAnalyzer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/WellAnalyzer */ "./src/js/models/WellAnalyzer.js");
 /* harmony import */ var _stores_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../stores/store */ "./src/js/stores/store.js");
 /* harmony import */ var _models_Well__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/Well */ "./src/js/models/Well.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
 //
 //
 //
@@ -673,29 +691,34 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       econsParams: [{
-        varName: 'totalRev',
-        textName: 'Total Revenue($)'
+        varName: "totalRev",
+        textName: "Total Revenue($)"
       }, {
-        varName: 'totalCost',
-        textName: 'Total Cost($)'
+        varName: "totalCost",
+        textName: "Total Cost($)"
       }, {
-        varName: 'payBackPeriod',
-        textName: 'Payback Period (Month)'
+        varName: "payBackPeriod",
+        textName: "Payback Period (Month)"
       }, {
-        varName: 'profitIndex',
-        textName: 'Profitability Index'
+        varName: "profitIndex",
+        textName: "Profitability Index"
       }, {
-        varName: 'investReturn',
-        textName: 'Return on Investment (%)'
+        varName: "investReturn",
+        textName: "Return on Investment (%)"
       }, {
-        varName: 'npv',
-        textName: 'NPV (%)'
+        varName: "npv",
+        textName: "NPV (%)"
       }]
     };
   },
   computed: {
     wellAnalyzer: function wellAnalyzer() {
-      return new _models_WellAnalyzer__WEBPACK_IMPORTED_MODULE_0__["default"](_stores_store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.wells); // return new WellAnalyzer(
+      var wells = _stores_store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.wells;
+
+      var cloneWell = _toConsumableArray(wells); //deep copy here
+
+
+      return new _models_WellAnalyzer__WEBPACK_IMPORTED_MODULE_0__["default"](cloneWell); // return new WellAnalyzer(
       //     [
       //         new Well( 'well2',3.83, 0.65, 31.82, 10.90, 0, 0, 0, 5, 0, 2, 1, 0, 0, 0, 5,5,4,5,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]),
       //         new Well( 'well4',1.69, 0.70, 10.04, 5.59, 0, 0, 0, 5, 0, 1, 1, 0, 0, 0, 5,5,4,5,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]),
@@ -711,7 +734,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    Event.$on('formsubmitted', function () {// alert('workinghereresultsff');
+    Event.$on("formsubmitted", function () {// alert('workinghereresultsff');
     });
   }
 });
@@ -2242,11 +2265,11 @@ var render = function() {
     { attrs: { id: "month-cover" } },
     [
       _vm._l(_vm.months, function(month, i) {
-        return i === 0 || _vm.visibilityStatus
-          ? _c("div", { key: i, staticClass: "flex flex-4" }, [
-              _c("article", [
+        return _c("div", { key: i, staticClass: "flex flex-4" }, [
+          i === 0 || _vm.visibilityStatus
+            ? _c("article", [
                 _vm._v(
-                  "\n            Production for Month " + _vm._s(_vm.plusOne(i))
+                  "\n      Production for Month " + _vm._s(_vm.plusOne(i))
                 ),
                 _c("br"),
                 _vm._v(" "),
@@ -2287,8 +2310,8 @@ var render = function() {
                   ]
                 )
               ])
-            ])
-          : _vm._e()
+            : _vm._e()
+        ])
       }),
       _vm._v(" "),
       _c("a", {
@@ -2343,7 +2366,7 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.wellAnalyzer.manyDefectWells(), function(well, i) {
-                    return _c("tr", [
+                    return _c("tr", { key: i }, [
                       _c("td", [_vm._v(_vm._s(well.name))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(well.defects))])
@@ -2372,7 +2395,7 @@ var render = function() {
           _c(
             "tbody",
             _vm._l(_vm.wellAnalyzer.wellRank(), function(well, i) {
-              return _c("tr", [
+              return _c("tr", { key: i }, [
                 _c("td", [_vm._v("Rank " + _vm._s(_vm.plusOne(i)))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(well.name))])
@@ -2404,8 +2427,8 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.wellAnalyzer.easyWorkOver(), function(well) {
-                  return _c("tr", [
+                _vm._l(_vm.wellAnalyzer.easyWorkOver(), function(well, i) {
+                  return _c("tr", { key: i }, [
                     _c("td", [_vm._v(_vm._s(well.name))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(well.cof))])
@@ -2431,8 +2454,8 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.wellAnalyzer.diffWorkOver(), function(well) {
-                  return _c("tr", [
+                _vm._l(_vm.wellAnalyzer.diffWorkOver(), function(well, i) {
+                  return _c("tr", { key: i }, [
                     _c("td", [_vm._v(_vm._s(well.name))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(well.cof))])
@@ -2459,8 +2482,10 @@ var render = function() {
           [
             _c("th", [_vm._v("Indicators")]),
             _vm._v(" "),
-            _vm._l(_vm.wellAnalyzer.wellRank(), function(well) {
-              return _c("th", [_vm._v(_vm._s(well.name))])
+            _vm._l(_vm.wellAnalyzer.wellRank(), function(well, i) {
+              return _c("th", { key: i }, [
+                _vm._v("\n          " + _vm._s(well.name) + "\n        ")
+              ])
             })
           ],
           2
@@ -2469,14 +2494,19 @@ var render = function() {
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.econsParams, function(param) {
+        _vm._l(_vm.econsParams, function(param, i) {
           return _c(
             "tr",
+            { key: i },
             [
               _c("td", [_vm._v(_vm._s(param.textName))]),
               _vm._v(" "),
-              _vm._l(_vm.wellAnalyzer.wells, function(well) {
-                return _c("td", [_vm._v(_vm._s(well[param.varName]))])
+              _vm._l(_vm.wellAnalyzer.wells, function(well, i) {
+                return _c("td", { key: i }, [
+                  _vm._v(
+                    "\n          " + _vm._s(well[param.varName]) + "\n        "
+                  )
+                ])
               })
             ],
             2
@@ -2512,7 +2542,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("td", { attrs: { colspan: "2" } }, [
           _vm._v(
-            "The following wells are not qualified for Matrix Acidizing and were taking\n                                away from the process.\n                            "
+            "\n                The following wells are not qualified for Matrix Acidizing and\n                were taking away from the process.\n              "
           )
         ])
       ])
@@ -2549,7 +2579,9 @@ var staticRenderFns = [
     return _c("tfoot", [
       _c("tr", [
         _c("td", { attrs: { colspan: "2" } }, [
-          _vm._v("These wells have Easy work over complexity Coiled Tubing.")
+          _vm._v(
+            "\n              These wells have Easy work over complexity Coiled Tubing.\n            "
+          )
         ])
       ])
     ])
@@ -16685,8 +16717,8 @@ var WellAnalyzer = /*#__PURE__*/function () {
   function WellAnalyzer(unOrderedWells) {
     _classCallCheck(this, WellAnalyzer);
 
-    this.unOrderedWells = unOrderedWells;
     var orderedWells = [];
+    this.unOrderedWells = unOrderedWells;
 
     var _loop = function _loop(i) {
       var highestPiasValue = unOrderedWells.reduce(function (highestWell, well) {
@@ -16698,7 +16730,7 @@ var WellAnalyzer = /*#__PURE__*/function () {
         return element.pias === highestPiasValue.pias;
       };
 
-      unOrderedWells.splice(unOrderedWells.findIndex(highestPias), 1);
+      unOrderedWells.splice(unOrderedWells.findIndex(highestPias), 1); //the problem is coming from here splicing the array will mess with it at the store, but it works now bcos i  deep copy it first
     };
 
     for (var i = 0; unOrderedWells.length > 0; i++) {
@@ -16847,7 +16879,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/okerefe/juilet/src/js/app.js */"./src/js/app.js");
+module.exports = __webpack_require__(/*! /Users/fred/Desktop/Codz/Projects/Frontend/vlessfriend/src/js/app.js */"./src/js/app.js");
 
 
 /***/ })
