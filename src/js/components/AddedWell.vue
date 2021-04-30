@@ -55,10 +55,10 @@
         <h4 style="color: black;">Technical Parameters</h4>
         <div class="flex flex-4">
             <article>
-                PI(A/S)<input :value="well.pias" type="text" required disabled/>
+                PI(B/S)<input :value="well.pibs" type="text" required disabled/>
             </article>
             <article>
-                PI(B/S)<input :value="well.pibs" type="text" required disabled/>
+                PI(A/S)<input :value="well.pias" type="text" required disabled/>
             </article>
             <article>
                 PI Ideal<input :value="well.pideal" type="text" required disabled/>
@@ -68,6 +68,9 @@
             </article>
             <article>
                 FE(A/S)<input :value="well.feas" type="text" required disabled/>
+            </article>
+            <article>
+                Q(a/s) (Production rate a/s)<input :value="well.pras" placeholder="Q(a/s) (Production rate a/s)" type="text" required disabled/>
             </article>
             <article>
                 ΔP Skin (B/S)<input :value="well.pskinbs" type="text" required disabled/>

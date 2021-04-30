@@ -164,6 +164,7 @@ export default class Well {
     get pideal() {
         let pideal = ((0.00708 * this.permbs * this.rt) / (this.vis * this.fvf * Math.log((this.rr/this.wbr)))).toFixed(4);
         if(!isNaN(pideal)) {
+            console.log(pideal);
             return pideal;
         }
     }
@@ -171,6 +172,7 @@ export default class Well {
     get febs() {
         let febs = (this.pibs/this.pideal).toFixed(4);
         if(!isNaN(febs)) {
+            console.log(febs);
             return febs;
         }
     }
