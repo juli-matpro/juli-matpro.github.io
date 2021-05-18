@@ -10,6 +10,7 @@
             </article>
         </div>
 
+        <br>
         <div class="flex flex-4">
             <article v-for="(npv, i) in well.npvs" :key="i" style="margin-bottom: 7px;">
                 <input :value="npv.value" type="text" disabled/>

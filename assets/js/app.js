@@ -555,6 +555,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'economic-details',
   props: {
@@ -974,8 +975,8 @@ __webpack_require__.r(__webpack_exports__);
       'value': 52
     }, {
       'value': 55
-    }]);
-    this.well = well1; // let well2 = new Well("Well 2", 41, 1500, 0.03, 1.14, 1.434, 202.8, 106, 418, 415.51, 20, 0.33, 44, 592, "Exponential", 50, 70, 12, 0, 0, 0, 5, 0, 2, 1, 0, 0, 0, 5,5,4,5, [{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
+    }]); // this.well = well1;
+    // let well2 = new Well("Well 2", 41, 1500, 0.03, 1.14, 1.434, 202.8, 106, 418, 415.51, 20, 0.33, 44, 592, "Exponential", 50, 70, 12, 0, 0, 0, 5, 0, 2, 1, 0, 0, 0, 5,5,4,5, [{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
     // let well3 = new Well("Well 3", 50, 1500, 0.03, 1.72, 1.327, 583.5, 65, 262, 415.51, 15.4, 0.33, 44, 991, "Exponential", 50, 70, 12, 0, 0, 0, 5, 6, 0, 1, 1, 0, 0, 5,5,4,5, [{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
     // let well4 = new Well("Well 4", 30, 1500, 0.03, 1.4, 0.317, 241.3, 110, 165, 415.51, 13.2, 2, 44, 825, "Exponential", 50, 70, 12, 0, 0, 0, 4, 6, 0, 1, 0, 0, 0, 4,5,3,4, [{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
     // store.commit('addToWell', this.well);
@@ -6942,6 +6943,8 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "flex flex-4" },
@@ -7385,10 +7388,7 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c("production-chart", {
-        key: _vm.well.npvs.length + "ffff",
-        attrs: { well: _vm.well }
-      }),
+      _c("production-chart", { key: "ffff", attrs: { well: _vm.well } }),
       _vm._v(" "),
       _c(
         "button",
