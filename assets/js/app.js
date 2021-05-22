@@ -122,198 +122,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -435,10 +243,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'decline-value',
   props: {
-    well: {}
+    well: {},
+    disabled: {}
   }
 });
 
@@ -556,10 +369,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'economic-details',
   props: {
-    well: {}
+    well: {},
+    disabled: {}
   },
   data: function data() {
     return {
@@ -572,6 +391,7 @@ __webpack_require__.r(__webpack_exports__);
         'value': this.currentNpv
       });
       this.currentNpv = '';
+      this.well.yearlyCostUpdate++;
     }
   }
 });
@@ -623,29 +443,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'production-chart',
-  props: ["well"],
+  props: ["well", "disabled", "wellAnalyzer", "analyze"],
   components: {
     'vue-chartist': v_chartist__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  created: function created() {
-    var npvs = [];
-    console.log(this.well.npvs.length);
-
-    for (var i = 0; i < this.well.npvs.length; i++) {
-      npvs.push("".concat(this.well.npvs[i].value, "%"));
-      console.log(this.well.npvs[i].value);
-    }
-
-    console.log('labels');
-    console.log(npvs);
-    this.npvs = npvs;
+  created: function created() {// let npvs = [];
+    // console.log(this.well.npvs.length);
+    // for(let i = 0; i < this.well.npvs.length; i++) {
+    //     npvs.push(`${this.well.npvs[i].value}%`);
+    //     console.log(this.well.npvs[i].value);
+    // }
+    // console.log('labels');
+    // console.log(npvs);
+    // this.npvs = npvs;
   },
   data: function data() {
     return {
-      npvs: [],
       data: {
         labels: this.labels(),
         series: this.series()
@@ -662,35 +494,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {},
   methods: {
-    getNpvs: function getNpvs() {
-      // console.log('rrrr' + this.npvs);
-      return this.npvs;
-    },
     series: function series() {
-      var _this = this;
+      var series = [];
 
-      var seriesData = [];
-      this.well.npvs.forEach(function (npv) {
-        seriesData.push(_this.well.totalNpvValue(npv));
-      });
-      console.log('seriesData');
-      console.log([seriesData]);
-      return [seriesData]; // return [
-      //     [12, 9, 7, 8, 5],
-      //     [2, 1, 3.5, 7, 3],
-      //     [1, 3, 4, 5, 6]
-      // ];
+      if (this.analyze == true) {
+        this.wellAnalyzer.wells.forEach(function (well) {
+          well.seriesPlot().forEach(function (singular) {
+            series.push(singular);
+          });
+        });
+        return series;
+      } else {
+        return this.well.seriesPlot();
+      }
     },
     labels: function labels() {
-      var npvs = [];
-      console.log(this.well.npvs.length);
-
-      for (var i = 0; i < this.well.npvs.length; i++) {
-        npvs.push("".concat(this.well.npvs[i].value, "%"));
-        console.log(this.well.npvs[i].value);
+      if (this.analyze == true) {
+        return this.wellAnalyzer.wells[1].labelsPlot();
+      } else {
+        return this.well.labelsPlot();
       }
-
-      return npvs;
     }
   }
 });
@@ -762,13 +585,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'production-profile',
   components: {
     'npv-value': _NpvValue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ["well"],
+  props: ["well", "disabled"],
   data: function data() {
     return {
       npvValueKey: 1
@@ -778,7 +606,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     saveOperateCost: function saveOperateCost(i, event) {
       this.well.yearlyOperateCost[i] = event.target.value;
-      this.npvValueKey++; // Event.$emit('operateCost', i, event.target.value);
+      this.npvValueKey++;
+      this.well.yearlyCostUpdate++; // Event.$emit('operateCost', i, event.target.value);
       // let el = 'operateCost_'+ i;
       // this.$refs[el].$el.focus();
     },
@@ -855,10 +684,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'technical-parameters',
   props: {
-    well: {}
+    well: {},
+    disabled: {}
   }
 });
 
@@ -882,6 +715,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _WorkoverComplexity__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./WorkoverComplexity */ "./src/js/components/WorkoverComplexity.vue");
 /* harmony import */ var _DeclineValue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DeclineValue */ "./src/js/components/DeclineValue.vue");
 /* harmony import */ var _EconomicDetails__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./EconomicDetails */ "./src/js/components/EconomicDetails.vue");
+//
+//
 //
 //
 //
@@ -946,9 +781,15 @@ __webpack_require__.r(__webpack_exports__);
       _stores_store__WEBPACK_IMPORTED_MODULE_0__["default"].commit('addToWell', this.well);
       this.well = {};
       this.well = new _models_Well__WEBPACK_IMPORTED_MODULE_1__["default"]();
+      this.initializeWellValues();
       this.months = [{
         'value': ''
       }];
+    },
+    initializeWellValues: function initializeWellValues() {
+      this.well.yearlyOperateCost = [];
+      this.well.npvs = [];
+      this.well.yearlyCostUpdate = 0;
     },
     addMonth: function addMonth() {
       this.months = this.months.concat({
@@ -964,8 +805,36 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    // this.well.months = this.months;
-    var well1 = new _models_Well__WEBPACK_IMPORTED_MODULE_1__["default"]("Well 1", 55, 1500, 0.03, 1.47, 0.37, 473.5, 187, 364, 415.51, 18, 3, 44, 2200, "Exponential", 250, 0.00519, 12, 0, 0, 0, 0, 5, 0, 1, 1, 0, 0, 0, 5, [], [], 5, 4, 55, [{
+    this.initializeWellValues(); // this.well.months = this.months;
+
+    var well1 = new _models_Well__WEBPACK_IMPORTED_MODULE_1__["default"]("Well 1", 55, 1500, 0.03, 1.47, 0.37, 473.5, 187, 364, 415.51, 18, 3, 44, 2200, "Exponential", 250, 0.00519, 12, 0, 0, 0, 0, 5, 0, 1, 1, 0, 0, 0, 10500000, [1000000, 1000000, 1000000], [{
+      'value': 0
+    }, {
+      'value': 20
+    }, {
+      'value': 30
+    }], 5, 4, 55, 0, [{
+      'value': 54
+    }, {
+      'value': 6
+    }, {
+      'value': 66
+    }, {
+      'value': 52
+    }, {
+      'value': 55
+    }]);
+    var well2 = new _models_Well__WEBPACK_IMPORTED_MODULE_1__["default"]("Well 2", 41, 1500, 0.03, 1.14, 1.434, 202.8, 106, 418, 415.51, 20, 0.33, 44, 592, "Exponential", 50, 70, 12, 1, 0, 0, 5, 0, 2, 1, 0, 0, 0, 5, 10500000, [1000000, 1000000, 1000000], [{
+      'value': 10
+    }, {
+      'value': 20
+    }, {
+      'value': 30
+    }, {
+      'value': 40
+    }, {
+      'value': 50
+    }], 5, 4, 55, 0, [{
       'value': 54
     }, {
       'value': 6
@@ -976,10 +845,52 @@ __webpack_require__.r(__webpack_exports__);
     }, {
       'value': 55
     }]); // this.well = well1;
-    // let well2 = new Well("Well 2", 41, 1500, 0.03, 1.14, 1.434, 202.8, 106, 418, 415.51, 20, 0.33, 44, 592, "Exponential", 50, 70, 12, 0, 0, 0, 5, 0, 2, 1, 0, 0, 0, 5,5,4,5, [{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
-    // let well3 = new Well("Well 3", 50, 1500, 0.03, 1.72, 1.327, 583.5, 65, 262, 415.51, 15.4, 0.33, 44, 991, "Exponential", 50, 70, 12, 0, 0, 0, 5, 6, 0, 1, 1, 0, 0, 5,5,4,5, [{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
-    // let well4 = new Well("Well 4", 30, 1500, 0.03, 1.4, 0.317, 241.3, 110, 165, 415.51, 13.2, 2, 44, 825, "Exponential", 50, 70, 12, 0, 0, 0, 4, 6, 0, 1, 0, 0, 0, 4,5,3,4, [{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
-    // store.commit('addToWell', this.well);
+
+    var well3 = new _models_Well__WEBPACK_IMPORTED_MODULE_1__["default"]("Well 3", 50, 1500, 0.03, 1.72, 1.327, 583.5, 65, 262, 415.51, 15.4, 0.33, 44, 991, "Exponential", 50, 70, 12, 0, 0, 0, 5, 6, 0, 1, 1, 0, 0, 5, 5, [1000000, 1000000, 1000000], [{
+      'value': 10
+    }, {
+      'value': 20
+    }, {
+      'value': 30
+    }, {
+      'value': 40
+    }, {
+      'value': 50
+    }], 5, 4, 55, 0, [{
+      'value': 54
+    }, {
+      'value': 6
+    }, {
+      'value': 66
+    }, {
+      'value': 52
+    }, {
+      'value': 55
+    }]);
+    var well4 = new _models_Well__WEBPACK_IMPORTED_MODULE_1__["default"]("Well 4", 30, 1500, 0.03, 1.4, 0.317, 241.3, 110, 165, 415.51, 13.2, 2, 44, 825, "Exponential", 50, 70, 12, 0, 0, 0, 4, 6, 0, 1, 0, 0, 0, 4, 5, [1000000, 1000000, 1000000], [{
+      'value': 10
+    }, {
+      'value': 20
+    }, {
+      'value': 30
+    }, {
+      'value': 40
+    }, {
+      'value': 50
+    }], 5, 4, 55, 0, [{
+      'value': 54
+    }, {
+      'value': 6
+    }, {
+      'value': 66
+    }, {
+      'value': 52
+    }, {
+      'value': 55
+    }]); // store.commit('addToWell', well1);
+    // store.commit('addToWell', well2);
+    // store.commit('addToWell', well3);
+    // store.commit('addToWell', well4);
   }
 });
 
@@ -1048,17 +959,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'well-information',
-  props: ['well'],
+  props: ['well', 'disabled'],
   methods: {
     checkPercentage: function checkPercentage() {
       var permas = (1 + this.well.perk / 100) * this.well.permbs;
@@ -1157,6 +1060,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_WellAnalyzer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/WellAnalyzer */ "./src/js/models/WellAnalyzer.js");
 /* harmony import */ var _stores_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../stores/store */ "./src/js/stores/store.js");
+/* harmony import */ var _ProductionChart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductionChart */ "./src/js/components/ProductionChart.vue");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1307,9 +1211,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ProductionChart: _ProductionChart__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {
       econsParams: [{
@@ -1356,10 +1270,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   created: function created() {},
-  mounted: function mounted() {
-    this.chart = new CanvasJS.Chart("chartContainer", this.chartOptions);
-    this.chart.options.data = this.wellAnalyzer.canvasChartData();
-    this.chart.render();
+  mounted: function mounted() {// this.chart = new CanvasJS.Chart("chartContainer", this.chartOptions);
+    // this.chart.options.data = this.wellAnalyzer.canvasChartData();
+    // this.chart.render();
   }
 });
 
@@ -1434,11 +1347,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'workover-complexity',
   props: {
-    well: {}
+    well: {},
+    disabled: {}
   }
 });
 
@@ -5966,6 +5879,112 @@ return Chartist;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./src/js/components/ProductionChart.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./src/js/components/ProductionChart.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n@keyframes dashoffset-seven {\n0% {\n        stroke-dashoffset: 7px;\n}\n100% {\n        stroke-dashoffset: 0px;\n}\n}\n.ct-series.ct-series-a .ct-line {\n    stroke: #8B0000;\n}\n.ct-series.ct-series-a .ct-point {\n    stroke: #8B0000;\n}\n.ct-series.ct-series-b .ct-line {\n    stroke: #FF0000;\n    stroke-width: 2px;\n    stroke-dasharray: 5px 2px;\n}\n.ct-series.ct-series-b .ct-point {\n    stroke: #FF0000;\n    stroke-width: 5px;\n}\n.ct-series.ct-series-b .ct-line {\n    stroke: #FF0000;\n    stroke-dasharray: 5px 2px;\n    animation: dashoffset-seven 200ms infinite linear;\n}\n.ct-series.ct-series-c .ct-line {\n    stroke: #004225;\n}\n.ct-series.ct-series-c .ct-point {\n    stroke: #004225;\n}\n.ct-series.ct-series-d .ct-line {\n    stroke: #00a86b;\n    stroke-width: 2px;\n    stroke-dasharray: 5px 2px;\n}\n.ct-series.ct-series-d .ct-point {\n    stroke: #00a86b;\n    stroke-width: 5px;\n}\n.ct-series.ct-series-d .ct-line {\n    stroke: #00a86b;\n    stroke-dasharray: 5px 2px;\n    animation: dashoffset-seven 200ms infinite linear;\n}\n.ct-series.ct-series-e .ct-line {\n    stroke: #0ff;\n}\n.ct-series.ct-series-e .ct-point {\n    stroke: #0ff;\n}\n.ct-series.ct-series-f .ct-line {\n    stroke: #40e0d0;\n    stroke-width: 2px;\n    stroke-dasharray: 5px 2px;\n}\n.ct-series.ct-series-f .ct-point {\n    stroke: #40e0d0;\n    stroke-width: 5px;\n}\n.ct-series.ct-series-f .ct-line {\n    stroke: #40e0d0;\n    stroke-dasharray: 5px 2px;\n    animation: dashoffset-seven 200ms infinite linear;\n}\n.ct-series.ct-series-g .ct-line {\n    stroke: #d0f0c0;\n}\n.ct-series.ct-series-g .ct-point {\n    stroke: #d0f0c0;\n}\n.ct-series.ct-series-h .ct-line {\n    stroke: #004953;\n    stroke-width: 2px;\n    stroke-dasharray: 5px 2px;\n}\n.ct-series.ct-series-h .ct-point {\n    stroke: #004953;\n    stroke-width: 5px;\n}\n.ct-series.ct-series-h .ct-line {\n    stroke: #004953;\n    stroke-dasharray: 5px 2px;\n    animation: dashoffset-seven 200ms infinite linear;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -6359,6 +6378,545 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./src/js/components/ProductionChart.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./src/js/components/ProductionChart.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--5-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--5-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ProductionChart.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./src/js/components/ProductionChart.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/timers-browserify/main.js":
 /*!************************************************!*\
   !*** ./node_modules/timers-browserify/main.js ***!
@@ -6463,39 +7021,25 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h3", { staticStyle: { "margin-bottom": "10px" } }, [
-        _vm._v(_vm._s(_vm.well.name))
-      ]),
+      _c("h3", [_vm._v(_vm._s(_vm.well.name))]),
       _vm._v(" "),
-      _c("well-information", { attrs: { well: _vm.well } }),
+      _c("well-information", { attrs: { well: _vm.well, disabled: true } }),
       _vm._v(" "),
-      _c("technical-parameters", { attrs: { well: _vm.well } }),
+      _c("technical-parameters", { attrs: { well: _vm.well, disabled: true } }),
       _vm._v(" "),
-      _c("workover-complexity", { attrs: { well: _vm.well } }),
+      _c("workover-complexity", { attrs: { well: _vm.well, disabled: true } }),
       _vm._v(" "),
-      _c("decline-value", { attrs: { well: _vm.well } }),
+      _c("decline-value", { attrs: { well: _vm.well, disabled: true } }),
       _vm._v(" "),
-      _c("economic-details", { attrs: { well: _vm.well } }),
+      _c("economic-details", { attrs: { well: _vm.well, disabled: true } }),
       _vm._v(" "),
       Array.isArray(_vm.well.prodProfile)
         ? _c("production-profile", {
-            key: _vm.prodProfileKey,
-            attrs: { well: _vm.well }
+            attrs: { well: _vm.well, disabled: true }
           })
         : _vm._e(),
       _vm._v(" "),
-      _c("production-chart", {
-        key: _vm.well.npvs.length + "ffff",
-        attrs: { well: _vm.well }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("hr", { staticStyle: { "margin-top": "-25px" } })
+      _c("production-chart", { attrs: { well: _vm.well, disabled: true } })
     ],
     1
   )
@@ -6556,6 +7100,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("h4", [_vm._v("Decline..")]),
+    _vm._v(" "),
     _c("div", { staticClass: "flex flex-4" }, [
       _c("article", [
         _vm._v("\n            Choose Type of Decline:\n            "),
@@ -6570,7 +7116,11 @@ var render = function() {
                 expression: "well.declineType"
               }
             ],
-            attrs: { name: "declineType", id: "declineType" },
+            attrs: {
+              name: "declineType",
+              id: "declineType",
+              disabled: _vm.disabled
+            },
             on: {
               change: function($event) {
                 var $$selectedVal = Array.prototype.filter
@@ -6621,6 +7171,7 @@ var render = function() {
           attrs: {
             placeholder: "Qa (Abandonment Rate)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.qa },
@@ -6649,6 +7200,7 @@ var render = function() {
           attrs: {
             placeholder: "Di (Decline Rate)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.di },
@@ -6678,6 +7230,7 @@ var render = function() {
               attrs: {
                 placeholder: "b (Constant)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.b },
@@ -6718,7 +7271,15 @@ var render = function() {
           domProps: { value: _vm.well.timeAbandon }
         })
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("br")
   ])
 }
 var staticRenderFns = []
@@ -6887,11 +7448,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h3", [_vm._v("Economic Details..")]),
+    _c("h4", [_vm._v("Economic Details..")]),
     _vm._v(" "),
     _c("div", { staticClass: "flex flex-4" }, [
       _c("article", [
-        _vm._v("\n            Investment (Cost)"),
+        _vm._v("\n            Investment (Cost)($)"),
         _c("input", {
           directives: [
             {
@@ -6904,6 +7465,7 @@ var render = function() {
           attrs: {
             placeholder: "Investment (Cost)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.ic },
@@ -6929,7 +7491,12 @@ var render = function() {
               expression: "well.op"
             }
           ],
-          attrs: { placeholder: "Oil Price", type: "text", required: "" },
+          attrs: {
+            placeholder: "Oil Price",
+            type: "text",
+            disabled: _vm.disabled,
+            required: ""
+          },
           domProps: { value: _vm.well.op },
           on: {
             input: function($event) {
@@ -6974,7 +7541,11 @@ var render = function() {
                 }
               ],
               staticStyle: { display: "inline", width: "100px" },
-              attrs: { placeholder: "NPV (%)", type: "text", required: "" },
+              attrs: {
+                placeholder: "NPV (%)",
+                disabled: _vm.disabled,
+                type: "text"
+              },
               domProps: { value: _vm.currentNpv },
               on: {
                 input: function($event) {
@@ -6995,16 +7566,45 @@ var render = function() {
                   display: "inline",
                   width: "110px"
                 },
-                attrs: { type: "button" },
+                attrs: { type: "button", disabled: _vm.disabled },
                 on: { click: _vm.addNpv }
               },
               [_vm._v("+ Add NPV\n                ")]
-            )
+            ),
+            _vm._v(" "),
+            !_vm.disabled
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "special",
+                    staticStyle: {
+                      background: "#c04000",
+                      display: "inline",
+                      width: "110px"
+                    },
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.well.npvs = []
+                      }
+                    }
+                  },
+                  [_vm._v("-Clear NPV\n                ")]
+                )
+              : _vm._e()
           ])
         ])
       ],
       2
-    )
+    ),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("br")
   ])
 }
 var staticRenderFns = []
@@ -7053,17 +7653,48 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h3", [_vm._v("Production Chart")]),
-      _vm._v(" "),
-      _c("vue-chartist", {
-        attrs: { data: _vm.data, options: _vm.options, type: "Line" }
-      })
-    ],
-    1
-  )
+  return _c("div", [
+    _c("br"),
+    _vm._v(" "),
+    _c("h4", [_vm._v("Production Chart..")]),
+    _vm._v(" "),
+    !_vm.disabled
+      ? _c(
+          "div",
+          [
+            _c("vue-chartist", {
+              attrs: { data: _vm.data, options: _vm.options, type: "Line" }
+            })
+          ],
+          1
+        )
+      : _c(
+          "div",
+          { staticStyle: { opacity: "0.6" } },
+          [
+            _c("vue-chartist", {
+              attrs: { data: _vm.data, options: _vm.options, type: "Line" }
+            }),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("br")
+          ],
+          1
+        )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -7088,7 +7719,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row", staticStyle: { overflow: "auto" } }, [
-    _c("h3", [_vm._v("Production Profile")]),
+    _c("h4", [_vm._v("Production Profile..")]),
     _vm._v(" "),
     _c("table", [
       _c("thead", [
@@ -7138,6 +7769,7 @@ var render = function() {
                     attrs: {
                       type: "text",
                       placeholder: "Year " + profile.time,
+                      disabled: _vm.disabled,
                       required: ""
                     },
                     domProps: { value: _vm.operateCostValue(i) },
@@ -7204,7 +7836,17 @@ var render = function() {
         ],
         2
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("br")
   ])
 }
 var staticRenderFns = [
@@ -7243,9 +7885,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticStyle: { color: "#000000" } }, [
-      _vm._v("Technical Parameters")
-    ]),
+    _c("h4", [_vm._v("Technical Parameters..")]),
     _vm._v(" "),
     _c("div", { staticClass: "flex flex-4" }, [
       _c("article", [
@@ -7332,7 +7972,15 @@ var render = function() {
           domProps: { value: _vm.well.rfacas }
         })
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("br")
   ])
 }
 var staticRenderFns = []
@@ -7381,14 +8029,18 @@ var render = function() {
       _vm._v(" "),
       _c("economic-details", { attrs: { well: _vm.well } }),
       _vm._v(" "),
-      Array.isArray(_vm.well.prodProfile)
-        ? _c("production-profile", {
-            key: _vm.prodProfileKey,
+      _vm.well.prodProfile.length > 1
+        ? _c("production-profile", { attrs: { well: _vm.well } })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.well.labelsPlot().length > 1
+        ? _c("production-chart", {
+            key: _vm.well.yearlyCostUpdate,
             attrs: { well: _vm.well }
           })
         : _vm._e(),
       _vm._v(" "),
-      _c("production-chart", { key: "ffff", attrs: { well: _vm.well } }),
+      _c("br"),
       _vm._v(" "),
       _c(
         "button",
@@ -7430,9 +8082,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticStyle: { color: "black", "font-weight": "500" } }, [
-      _vm._v("Well Information")
-    ]),
+    _c("h4", [_vm._v("Well Information..")]),
     _vm._v(" "),
     _c("div", { staticClass: "flex flex-4" }, [
       _c("article", [
@@ -7446,7 +8096,12 @@ var render = function() {
               expression: "well.name"
             }
           ],
-          attrs: { placeholder: "Name of Well", type: "text", required: "" },
+          attrs: {
+            placeholder: "Name of Well",
+            type: "text",
+            disabled: _vm.disabled,
+            required: ""
+          },
           domProps: { value: _vm.well.name },
           on: {
             input: function($event) {
@@ -7473,6 +8128,7 @@ var render = function() {
           attrs: {
             placeholder: "Re (Reservoir Radius)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.rr },
@@ -7501,6 +8157,7 @@ var render = function() {
           attrs: {
             placeholder: "Rw (Well Bore radius)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.wbr },
@@ -7529,6 +8186,7 @@ var render = function() {
           attrs: {
             placeholder: "Bo (Formation volume factor)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.fvf },
@@ -7554,7 +8212,12 @@ var render = function() {
               expression: "well.vis"
             }
           ],
-          attrs: { placeholder: "μ (Viscocity)", type: "text", required: "" },
+          attrs: {
+            placeholder: "μ (Viscocity)",
+            type: "text",
+            disabled: _vm.disabled,
+            required: ""
+          },
           domProps: { value: _vm.well.vis },
           on: {
             input: function($event) {
@@ -7581,6 +8244,7 @@ var render = function() {
           attrs: {
             placeholder: "H(Reservoir Thickness)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.rt },
@@ -7609,6 +8273,7 @@ var render = function() {
           attrs: {
             placeholder: "Pr-Pwf (Pressure Drop)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.pd },
@@ -7637,6 +8302,7 @@ var render = function() {
           attrs: {
             placeholder: "K(b/s) (Permeability)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.permbs },
@@ -7668,6 +8334,7 @@ var render = function() {
           attrs: {
             placeholder: "K(a/s) (Permeability)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.permas },
@@ -7699,6 +8366,7 @@ var render = function() {
           attrs: {
             placeholder: "Percentage of K(a/s)",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.perk },
@@ -7727,7 +8395,12 @@ var render = function() {
               expression: "well.skinbs"
             }
           ],
-          attrs: { placeholder: "Skin (b/s)", type: "text", required: "" },
+          attrs: {
+            placeholder: "Skin (b/s)",
+            type: "text",
+            disabled: _vm.disabled,
+            required: ""
+          },
           domProps: { value: _vm.well.skinbs },
           on: {
             input: [
@@ -7754,7 +8427,12 @@ var render = function() {
               expression: "well.skinas"
             }
           ],
-          attrs: { placeholder: "Skin (a/s)", type: "text", required: "" },
+          attrs: {
+            placeholder: "Skin (a/s)",
+            type: "text",
+            disabled: _vm.disabled,
+            required: ""
+          },
           domProps: { value: _vm.well.skinas },
           on: {
             input: [
@@ -7784,6 +8462,7 @@ var render = function() {
           attrs: {
             placeholder: "Percentage of Skin a/s",
             type: "text",
+            disabled: _vm.disabled,
             required: ""
           },
           domProps: { value: _vm.well.perskinas },
@@ -7814,6 +8493,7 @@ var render = function() {
           ],
           attrs: {
             placeholder: "Q(b/s) (Production rate b/s)",
+            disabled: _vm.disabled,
             type: "text",
             required: ""
           },
@@ -7828,7 +8508,15 @@ var render = function() {
           }
         })
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("br")
   ])
 }
 var staticRenderFns = []
@@ -7944,170 +8632,144 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h2", [_vm._v("Results")]),
-    _vm._v(" "),
-    _c("article", {
-      staticStyle: { height: "360px", width: "100%" },
-      attrs: { id: "chartContainer" }
-    }),
-    _vm._v(" "),
-    _c("br"),
-    _c("br"),
-    _vm._v(" "),
-    _c("br"),
-    _c("br"),
-    _vm._v(" "),
-    _c("br"),
-    _c("br"),
-    _vm._v(" "),
-    _c("div", { staticClass: "flex flex-2" }, [
-      _c("article", [
-        _c("h4", [_vm._v("Ranking of Well based on Technical Parameters")]),
-        _vm._v(" "),
-        _c("table", [
-          _vm._m(0),
+  return _c(
+    "div",
+    [
+      _c("h2", [_vm._v("Results")]),
+      _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex flex-2" }, [
+        _c("article", [
+          _c("h4", [_vm._v("Ranking of Well based on Technical Parameters")]),
           _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.wellAnalyzer.wellRank(), function(well, i) {
-              return _c("tr", { key: i }, [
-                _c("td", [_vm._v("Rank " + _vm._s(_vm.plusOne(i)))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(well.name))])
-              ])
-            }),
-            0
-          ),
+          _c("table", [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.wellAnalyzer.wellRank(), function(well, i) {
+                return _c("tr", { key: i }, [
+                  _c("td", [_vm._v("Rank " + _vm._s(_vm.plusOne(i)))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(well.name))])
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("tfoot")
+          ]),
           _vm._v(" "),
-          _c("tfoot")
+          _c("br"),
+          _c("br")
         ]),
         _vm._v(" "),
-        _c("br"),
-        _c("br")
-      ]),
-      _vm._v(" "),
-      _c("article", [
-        _c("h4", [_vm._v("No Matrix Acidizing Wells")]),
-        _vm._v(" "),
-        _vm.wellAnalyzer.manyDefectWells().length
-          ? _c("table", [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.wellAnalyzer.manyDefectWells(), function(well, i) {
-                  return _c("tr", { key: i }, [
-                    _c("td", [_vm._v(_vm._s(well.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(well.defects))])
-                  ])
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _vm._m(2)
-            ])
-          : _c("p", [_vm._v("No Wells Present Here.")])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("br"),
-    _c("br"),
-    _vm._v(" "),
-    _c("div", { staticClass: "flex flex-2" }, [
-      _c("article", [
-        _c("h4", [_vm._v("Wells with Easy WorkOver Complexity")]),
-        _vm._v(" "),
-        _vm.wellAnalyzer.easyWorkOver().length
-          ? _c("table", [
-              _vm._m(3),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.wellAnalyzer.easyWorkOver(), function(well, i) {
-                  return _c("tr", { key: i }, [
-                    _c("td", [_vm._v(_vm._s(well.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(well.cof))])
-                  ])
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _vm._m(4)
-            ])
-          : _c("p", [_vm._v("No Wells Present Here.")]),
-        _vm._v(" "),
-        _c("br"),
-        _c("br")
-      ]),
-      _vm._v(" "),
-      _c("article", [
-        _c("h4", [_vm._v("Wells with Difficult WorkOver Complexity")]),
-        _vm._v(" "),
-        _vm.wellAnalyzer.diffWorkOver().length
-          ? _c("table", [
-              _vm._m(5),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.wellAnalyzer.diffWorkOver(), function(well, i) {
-                  return _c("tr", { key: i }, [
-                    _c("td", [_vm._v(_vm._s(well.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(well.cof))])
-                  ])
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _vm._m(6)
-            ])
-          : _c("p", [_vm._v("No Wells Present Here.")]),
-        _vm._v(" "),
-        _c("br"),
-        _c("br")
-      ])
-    ]),
-    _vm._v(" "),
-    _c("h2", [_vm._v("Economic Analysis")]),
-    _vm._v(" "),
-    _c("table", [
-      _c("thead", [
-        _c(
-          "tr",
-          [
-            _c("th", [_vm._v("Indicators")]),
-            _vm._v(" "),
-            _vm._l(_vm.wellAnalyzer.wellRank(), function(well, i) {
-              return _c("th", { key: i }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(well.name) +
-                    "\n                "
-                )
+        _c("article", [
+          _c("h4", [_vm._v("No Matrix Acidizing Wells")]),
+          _vm._v(" "),
+          _vm.wellAnalyzer.manyDefectWells().length
+            ? _c("table", [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.wellAnalyzer.manyDefectWells(), function(well, i) {
+                    return _c("tr", { key: i }, [
+                      _c("td", [_vm._v(_vm._s(well.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(well.defects))])
+                    ])
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _vm._m(2)
               ])
-            })
-          ],
-          2
-        )
+            : _c("p", [_vm._v("No Wells Present Here.")])
+        ])
       ]),
       _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.econsParams, function(param, i) {
-          return _c(
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex flex-2" }, [
+        _c("article", [
+          _c("h4", [_vm._v("Wells with Easy WorkOver Complexity")]),
+          _vm._v(" "),
+          _vm.wellAnalyzer.easyWorkOver().length
+            ? _c("table", [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.wellAnalyzer.easyWorkOver(), function(well, i) {
+                    return _c("tr", { key: i }, [
+                      _c("td", [_vm._v(_vm._s(well.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(well.cof))])
+                    ])
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _vm._m(4)
+              ])
+            : _c("p", [_vm._v("No Wells Present Here.")]),
+          _vm._v(" "),
+          _c("br"),
+          _c("br")
+        ]),
+        _vm._v(" "),
+        _c("article", [
+          _c("h4", [_vm._v("Wells with Difficult WorkOver Complexity")]),
+          _vm._v(" "),
+          _vm.wellAnalyzer.diffWorkOver().length
+            ? _c("table", [
+                _vm._m(5),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.wellAnalyzer.diffWorkOver(), function(well, i) {
+                    return _c("tr", { key: i }, [
+                      _c("td", [_vm._v(_vm._s(well.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(well.cof))])
+                    ])
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _vm._m(6)
+              ])
+            : _c("p", [_vm._v("No Wells Present Here.")]),
+          _vm._v(" "),
+          _c("br"),
+          _c("br")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("h2", [_vm._v("Economic Analysis")]),
+      _vm._v(" "),
+      _c("table", [
+        _c("thead", [
+          _c(
             "tr",
-            { key: i },
             [
-              _c("td", [_vm._v(_vm._s(param.textName))]),
+              _c("th", [_vm._v("Indicators")]),
               _vm._v(" "),
-              _vm._l(_vm.wellAnalyzer.wells, function(well, i) {
-                return _c("td", { key: i }, [
+              _vm._l(_vm.wellAnalyzer.wellRank(), function(well, i) {
+                return _c("th", { key: i }, [
                   _vm._v(
                     "\n                    " +
-                      _vm._s(well[param.varName]) +
+                      _vm._s(well.name) +
                       "\n                "
                   )
                 ])
@@ -8115,15 +8777,44 @@ var render = function() {
             ],
             2
           )
-        }),
-        0
-      )
-    ]),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _vm._m(7)
-  ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.econsParams, function(param, i) {
+            return _c(
+              "tr",
+              { key: i },
+              [
+                _c("td", [_vm._v(_vm._s(param.textName))]),
+                _vm._v(" "),
+                _vm._l(_vm.wellAnalyzer.wells, function(well, i) {
+                  return _c("td", { key: i }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(well[param.varName]) +
+                        "\n                "
+                    )
+                  ])
+                })
+              ],
+              2
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("production-chart", {
+        attrs: { wellAnalyzer: _vm.wellAnalyzer, analyze: true }
+      }),
+      _vm._v(" "),
+      _vm._m(7)
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -8253,19 +8944,19 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.well.workOverComplexity,
-            expression: "well.workOverComplexity"
+            value: _vm.well.workOverComplex,
+            expression: "well.workOverComplex"
           }
         ],
         attrs: { type: "checkbox", id: "workOverComplexity" },
         domProps: {
-          checked: Array.isArray(_vm.well.workOverComplexity)
-            ? _vm._i(_vm.well.workOverComplexity, null) > -1
-            : _vm.well.workOverComplexity
+          checked: Array.isArray(_vm.well.workOverComplex)
+            ? _vm._i(_vm.well.workOverComplex, null) > -1
+            : _vm.well.workOverComplex
         },
         on: {
           change: function($event) {
-            var $$a = _vm.well.workOverComplexity,
+            var $$a = _vm.well.workOverComplex,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
@@ -8273,17 +8964,17 @@ var render = function() {
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
                 $$i < 0 &&
-                  _vm.$set(_vm.well, "workOverComplexity", $$a.concat([$$v]))
+                  _vm.$set(_vm.well, "workOverComplex", $$a.concat([$$v]))
               } else {
                 $$i > -1 &&
                   _vm.$set(
                     _vm.well,
-                    "workOverComplexity",
+                    "workOverComplex",
                     $$a.slice(0, $$i).concat($$a.slice($$i + 1))
                   )
               }
             } else {
-              _vm.$set(_vm.well, "workOverComplexity", $$c)
+              _vm.$set(_vm.well, "workOverComplex", $$c)
             }
           }
         }
@@ -8294,8 +8985,12 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
+    _vm.well.workOverComplex
+      ? _c("h4", [_vm._v("Workover Complexity..")])
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "flex flex-4" }, [
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            a(Gravel pack linear)"),
             _c("input", {
@@ -8310,6 +9005,7 @@ var render = function() {
               attrs: {
                 placeholder: "a(Gravel pack linear",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.gpl },
@@ -8325,7 +9021,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            g(Gravel pack index)"),
             _c("input", {
@@ -8340,6 +9036,7 @@ var render = function() {
               attrs: {
                 placeholder: "g(Gravel pack index)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.gpi },
@@ -8355,7 +9052,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            p(Packer index)"),
             _c("input", {
@@ -8370,6 +9067,7 @@ var render = function() {
               attrs: {
                 placeholder: "p(Packer index)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.pi },
@@ -8385,7 +9083,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            d(Workover depth index)"),
             _c("input", {
@@ -8400,6 +9098,7 @@ var render = function() {
               attrs: {
                 placeholder: "d(Workover depth index)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.wdi },
@@ -8415,7 +9114,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            m(Mandrel index)"),
             _c("input", {
@@ -8430,6 +9129,7 @@ var render = function() {
               attrs: {
                 placeholder: "m(Mandrel index)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.mi },
@@ -8445,7 +9145,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            r(Age of last re-entry)"),
             _c("input", {
@@ -8460,6 +9160,7 @@ var render = function() {
               attrs: {
                 placeholder: "r(Age of last re-entry)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.alr },
@@ -8475,7 +9176,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            v(Angle of deviation)"),
             _c("input", {
@@ -8490,6 +9191,7 @@ var render = function() {
               attrs: {
                 placeholder: "v(Angle of deviation)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.aod },
@@ -8505,7 +9207,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            t(Lost wireline index)"),
             _c("input", {
@@ -8520,6 +9222,7 @@ var render = function() {
               attrs: {
                 placeholder: "t(Lost wireline index)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.lwi },
@@ -8535,7 +9238,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            c(Casing patch index)"),
             _c("input", {
@@ -8550,6 +9253,7 @@ var render = function() {
               attrs: {
                 placeholder: "c(Casing patch index)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.cpi },
@@ -8565,7 +9269,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.well.workOverComplexity
+      _vm.well.workOverComplex
         ? _c("article", [
             _vm._v("\n            w(Well head repair index)"),
             _c("input", {
@@ -8580,6 +9284,7 @@ var render = function() {
               attrs: {
                 placeholder: "w(Well head repair index)",
                 type: "text",
+                disabled: _vm.disabled,
                 required: ""
               },
               domProps: { value: _vm.well.whr },
@@ -8594,7 +9299,15 @@ var render = function() {
             })
           ])
         : _vm._e()
-    ])
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("br")
   ])
 }
 var staticRenderFns = []
@@ -22475,7 +23188,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductionChart_vue_vue_type_template_id_f27ff7ee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductionChart.vue?vue&type=template&id=f27ff7ee& */ "./src/js/components/ProductionChart.vue?vue&type=template&id=f27ff7ee&");
 /* harmony import */ var _ProductionChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductionChart.vue?vue&type=script&lang=js& */ "./src/js/components/ProductionChart.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _ProductionChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductionChart.vue?vue&type=style&index=0&lang=css& */ "./src/js/components/ProductionChart.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -22483,7 +23198,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _ProductionChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _ProductionChart_vue_vue_type_template_id_f27ff7ee___WEBPACK_IMPORTED_MODULE_0__["render"],
   _ProductionChart_vue_vue_type_template_id_f27ff7ee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -22512,6 +23227,22 @@ component.options.__file = "src/js/components/ProductionChart.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductionChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProductionChart.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./src/js/components/ProductionChart.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductionChart_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./src/js/components/ProductionChart.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************!*\
+  !*** ./src/js/components/ProductionChart.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductionChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--5-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--5-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ProductionChart.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./src/js/components/ProductionChart.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductionChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductionChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductionChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductionChart_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
 
 /***/ }),
 
@@ -23078,12 +23809,13 @@ var Well = /*#__PURE__*/function () {
    * @param lc
    * @param cac
    * @param op
+   * @param yearlyCostUpdate
    * @param months
    *
    * @return void Return value description.
    */
   // constructor(name, feas, rfac, pias, sr, gpl, gpi, pi, wdi, mi, alr, aod, lwi, cpi, whr, sc, lc, cac, op, months) {
-  function Well(name, rt, rr, wbr, fvf, vis, pd, permbs, permas, perk, skinbs, skinas, perskinas, prbs, declineType, qa, di, b, workOverComplex, gpl, gpi, pi, wdi, mi, alr, aod, lwi, cpi, whr, ic, yearlyOperateCost, npvs, lc, cac, op, months) {
+  function Well(name, rt, rr, wbr, fvf, vis, pd, permbs, permas, perk, skinbs, skinas, perskinas, prbs, declineType, qa, di, b, workOverComplex, gpl, gpi, pi, wdi, mi, alr, aod, lwi, cpi, whr, ic, yearlyOperateCost, npvs, lc, cac, op, yearlyCostUpdate, months) {
     _classCallCheck(this, Well);
 
     this.name = name;
@@ -23121,10 +23853,110 @@ var Well = /*#__PURE__*/function () {
     this.lc = lc;
     this.cac = cac;
     this.op = op;
+    this.yearlyCostUpdate = yearlyCostUpdate;
     this.months = months;
   }
 
   _createClass(Well, [{
+    key: "interpolate",
+    value: function interpolate() {
+      var arr = [];
+
+      for (var i = 1; i < this.npvs.length; i++) {
+        arr.push(null);
+      } // console.log('arrlennnnn' + arr.length);
+
+
+      this.npvs.forEach(function (npv) {});
+      var last = this.npvs.length - 1; // console.log('last' + last);
+
+      if (last !== -1) {
+        var lastTotalNpvValue = this.totalNpvValue(this.npvs[last]); // console.log('lastvalue' + lastTotalNpvValue);
+
+        arr.push(lastTotalNpvValue);
+        var currentAddition = 10;
+        var lo = 0; // for (
+        //     let nextTotalNpv = this.totalNpvValue({'value': (parseInt(this.npvs[last].value) + currentAddition)});
+        //     nextTotalNpv > 1;
+        //     currentAddition+=10
+        // ) {
+        //     arr.push(nextTotalNpv);
+        // }
+
+        while (true) {
+          var value = parseInt(this.npvs[last].value) + currentAddition;
+          var nextTotalNpv = this.totalNpvValue({
+            'value': value
+          });
+          currentAddition += 10;
+          lo++;
+          arr.push(nextTotalNpv); // console.log('nextttt>>>>>>>>>: ' + nextTotalNpv);
+
+          if (lo == 500 || nextTotalNpv < 1) {
+            // console.log('loooooo' + lo)
+            break;
+          }
+        }
+      } // while ()
+
+
+      return arr;
+    }
+  }, {
+    key: "seriesPlot",
+    value: function seriesPlot() {
+      var _this = this;
+
+      var seriesData = [];
+      this.npvs.forEach(function (npv) {
+        seriesData.push(_this.totalNpvValue(npv));
+      }); // console.log('seriesData');
+      // console.log([seriesData]);
+
+      var extra = this.interpolate();
+      return [seriesData, extra];
+    }
+  }, {
+    key: "labelsPlot",
+    value: function labelsPlot() {
+      var npvs = []; // console.log('interpolate' + this.interpolate())
+
+      var totalLabel = this.npvs.length + this.interpolate().length - 1;
+      console.log('totallabell>' + totalLabel);
+      var tens = 0;
+
+      for (var i = 1; i <= totalLabel; i++) {
+        tens++;
+
+        if (tens == 10) {
+          npvs.push("".concat(i * 10, "%"));
+          tens = 0;
+        } else {
+          npvs.push(null);
+        }
+      }
+
+      console.log(npvs); // console.log(this.npvs.length);
+      // let lastValue = 0;
+      // this.npvs.forEach((npv) =>{
+      //     // npvs.push(`${npv.value}%`);
+      //     npvs.push(npv.value);
+      //     lastValue = npv.value;
+      //     // console.log(npv.value);
+      // });
+      //
+      //
+      // let start = lastValue + 10;
+      // if(this.interpolate().length > 0) {
+      //     for(let i = 0; i < (this.interpolate().length -1); i++) {
+      //         npvs.push(start);
+      //         start+=10;
+      //     }
+      // }
+
+      return npvs;
+    }
+  }, {
     key: "npvValue",
     value: function npvValue(i, npv) {
       var module1 = this.prodProfile[i].ncf;
@@ -23139,8 +23971,8 @@ var Well = /*#__PURE__*/function () {
       var value = 0;
 
       for (var i = 0; i < this.prodProfile.length; i++) {
-        var npvPres = this.npvValue(i, npv);
-        console.log(npvPres);
+        var npvPres = this.npvValue(i, npv); // console.log(npvPres);
+
         value += parseInt(npvPres);
       }
 
@@ -23325,7 +24157,12 @@ var Well = /*#__PURE__*/function () {
   }, {
     key: "timeAbandon",
     get: function get() {
-      var timeAbandon = 1 / this.di * Math.log(this.pras / this.qa) / 365;
+      var timeAbandon;
+
+      if (this.di > 0) {
+        timeAbandon = 1 / this.di * Math.log(this.pras / this.qa) / 365;
+      }
+
       return !isNaN(timeAbandon) ? timeAbandon : '';
     }
   }, {
@@ -23335,26 +24172,28 @@ var Well = /*#__PURE__*/function () {
       var noOfProfile = Math.ceil(this.timeAbandon);
       var prevProdRate = 0;
 
-      for (var i = 0; i <= noOfProfile; i++) {
-        var time = i == noOfProfile ? this.timeAbandon : i;
-        var prodRateReal = (this.pras * Math.exp(-1 * this.di * 365 * time)).toFixed(4);
-        var prodRateValue = !isNaN(prodRateReal) ? prodRateReal : '';
-        var prodRate = i == 0 ? this.pras : prodRateValue;
-        var productionReal = ((prevProdRate - prodRate) / this.di).toFixed(4);
-        var productionValue = !isNaN(productionReal) ? productionReal : '';
-        var production = i == 0 ? 0 : productionValue;
-        var revenueValue = (production * this.op).toFixed(4);
-        var revenue = !isNaN(revenueValue) ? revenueValue : '';
-        var ncfValue = i == 0 ? -1 * this.ic : (revenue - this.yearlyOperateCost[i]).toFixed(4);
-        var ncf = !isNaN(ncfValue) ? ncfValue : '';
-        prevProdRate = prodRate;
-        prodProfile.push({
-          'time': time,
-          'prodRate': prodRate,
-          'production': production,
-          'revenue': revenue,
-          'ncf': ncf
-        });
+      if (this.di > 0) {
+        for (var i = 0; i <= noOfProfile; i++) {
+          var time = i == noOfProfile ? this.timeAbandon : i;
+          var prodRateReal = (this.pras * Math.exp(-1 * this.di * 365 * time)).toFixed(4);
+          var prodRateValue = !isNaN(prodRateReal) ? prodRateReal : '';
+          var prodRate = i == 0 ? this.pras : prodRateValue;
+          var productionReal = ((prevProdRate - prodRate) / this.di).toFixed(4);
+          var productionValue = !isNaN(productionReal) ? productionReal : '';
+          var production = i == 0 ? 0 : productionValue;
+          var revenueValue = (production * this.op).toFixed(4);
+          var revenue = !isNaN(revenueValue) ? revenueValue : '';
+          var ncfValue = i == 0 ? -1 * this.ic : (revenue - this.yearlyOperateCost[i]).toFixed(4);
+          var ncf = !isNaN(ncfValue) ? ncfValue : '';
+          prevProdRate = prodRate;
+          prodProfile.push({
+            'time': time,
+            'prodRate': prodRate,
+            'production': production,
+            'revenue': revenue,
+            'ncf': ncf
+          });
+        }
       }
 
       return prodProfile;
@@ -23448,6 +24287,9 @@ var WellAnalyzer = /*#__PURE__*/function () {
     value: function wellRank() {
       return this.nonDefectiveWells().concat(this.singleDefectWells(), this.manyDefectWells());
     }
+  }, {
+    key: "economicRank",
+    value: function economicRank() {}
   }, {
     key: "chartDataPoints",
     value: function chartDataPoints() {

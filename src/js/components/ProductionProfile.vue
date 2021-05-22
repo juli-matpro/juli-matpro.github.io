@@ -1,6 +1,6 @@
 <template>
     <div class="row" style="overflow: auto;">
-        <h3>Production Profile</h3>
+        <h4>Production Profile..</h4>
         <table>
             <thead>
             <tr>
@@ -26,7 +26,8 @@
                         :placeholder="'Year ' + profile.time"
                         :value="operateCostValue(i)"
                         @input="saveOperateCost(i, $event)"
-                        required/>
+                        :disabled="disabled"
+                        required />
                 </td>
                 <td>{{ profile.revenue }}</td>
                  <td>{{ profile.ncf }}</td>
@@ -49,8 +50,12 @@
             </tr>
             </tbody>
         </table>
+        <br/>
+        <br/>
+        <br/>
+        <hr/>
+        <br/>
     </div>
-
 </template>
 
 <script>
@@ -62,7 +67,7 @@
             'npv-value': NpvValue,
         },
 
-        props: ["well"],
+        props: ["well", "disabled"],
 
         data() {
             return {
@@ -75,6 +80,7 @@
             saveOperateCost(i, event) {
                 this.well.yearlyOperateCost[i] = event.target.value;
                 this.npvValueKey++;
+                this.well.yearlyCostUpdate++;
                 // Event.$emit('operateCost', i, event.target.value);
                 // let el = 'operateCost_'+ i;
                 // this.$refs[el].$el.focus();

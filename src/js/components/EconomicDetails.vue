@@ -1,12 +1,12 @@
 <template>
     <div>
-        <h3>Economic Details..</h3>
+        <h4>Economic Details..</h4>
         <div class="flex flex-4">
             <article>
-                Investment (Cost)<input v-model="well.ic" placeholder="Investment (Cost)" type="text" required/>
+                Investment (Cost)($)<input v-model="well.ic" placeholder="Investment (Cost)" type="text" :disabled="disabled" required/>
             </article>
             <article>
-                Oil Price($)<input v-model="well.op" placeholder="Oil Price" type="text" required/>
+                Oil Price($)<input v-model="well.op" placeholder="Oil Price" type="text" :disabled="disabled" required/>
             </article>
         </div>
 
@@ -17,16 +17,21 @@
             </article>
             <article>
                 <div style="display: inline;">
-                    <input style="display: inline; width: 100px;" v-model="currentNpv" placeholder="NPV (%)" type="text"
-                           required/>
+                    <input style="display: inline; width: 100px;" v-model="currentNpv" placeholder="NPV (%)" :disabled="disabled" type="text"/>
                     <button @click="addNpv" type="button" class="special"
-                            style="background: #5a5a5a; display: inline; width: 110px;">+ Add NPV
+                            style="background: #5a5a5a; display: inline; width: 110px;" :disabled="disabled">+ Add NPV
+                    </button>
+                    <button  v-if="!disabled" @click="well.npvs = []" type="button" class="special"
+                            style="background: #c04000; display: inline; width: 110px;">-Clear NPV
                     </button>
 
                 </div>
             </article>
-
         </div>
+        <br/>
+        <br/>
+        <hr/>
+        <br/>
     </div>
 </template>
 <script>
@@ -34,6 +39,7 @@
         name: 'economic-details',
         props: {
             well: {},
+            disabled: {},
         },
 
         data() {
@@ -46,6 +52,7 @@
             addNpv() {
                 this.well.npvs = this.well.npvs.concat({'value': this.currentNpv});
                 this.currentNpv = '';
+                this.well.yearlyCostUpdate++;
             },
         }
 

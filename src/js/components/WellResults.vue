@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Results</h2>
-        <article id="chartContainer" style="height: 360px; width: 100%;"></article>
+
 <!--        <article id="chartContainer"></article>-->
 
         <br/><br/>
@@ -130,6 +130,12 @@
             </tbody>
         </table>
         <br/>
+
+
+
+        <production-chart :wellAnalyzer="wellAnalyzer" :analyze="true"/>
+
+
         <div style="text-align: end">
             <a href="/" class="special button">Analyze Other Wells</a>
         </div>
@@ -139,8 +145,14 @@
 <script>
     import WellAnalyzer from "../models/WellAnalyzer";
     import store from "../stores/store";
+    import ProductionChart from "./ProductionChart";
 
     export default {
+
+        components: {
+            ProductionChart,
+        },
+
         data() {
             return {
                 econsParams: [
@@ -179,9 +191,9 @@
         created() {
         },
         mounted() {
-            this.chart = new CanvasJS.Chart("chartContainer", this.chartOptions);
-            this.chart.options.data = this.wellAnalyzer.canvasChartData();
-            this.chart.render();
+            // this.chart = new CanvasJS.Chart("chartContainer", this.chartOptions);
+            // this.chart.options.data = this.wellAnalyzer.canvasChartData();
+            // this.chart.render();
         },
     };
 </script>

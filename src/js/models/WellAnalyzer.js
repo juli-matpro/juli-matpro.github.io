@@ -47,6 +47,10 @@ export default class WellAnalyzer {
         );
     }
 
+    economicRank() {
+
+    }
+
     chartDataPoints() {
         let data = [];
         this.wellRank().forEach((well) =>{

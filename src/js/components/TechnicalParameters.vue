@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h4 style="color: #000000;">Technical Parameters</h4>
+    <h4>Technical Parameters..</h4>
     <div class="flex flex-4">
         <article>
             PI(B/S)<input :value="well.pibs" type="text" required disabled/>
@@ -33,15 +33,19 @@
         <article>
             R-Factor (A/S)<input :value="well.rfacas" type="text" required disabled/>
         </article>
-
     </div>
+    <br/>
+    <br/>
+    <hr/>
+    <br/>
 </div>
 </template>
 <script>
     export default {
         name: 'technical-parameters',
         props: {
-            well: {}
+            well: {},
+            disabled: {},
         }
     }
 </script>
