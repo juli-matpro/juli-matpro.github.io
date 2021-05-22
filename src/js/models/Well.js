@@ -388,6 +388,14 @@ export default class Well {
         return (!isNaN(npvValue)) ? npvValue : '';
     }
 
+    totalNcfValue() {
+        let value = 0;
+        for (let i = 0; i < this.prodProfile.length; i++) {
+            value += parseInt(this.prodProfile[i].ncf);
+        }
+        return value;
+    }
+
     totalNpvValue(npv) {
         let value = 0;
         for (let i = 0; i < this.prodProfile.length; i++) {

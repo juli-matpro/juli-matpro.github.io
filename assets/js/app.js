@@ -590,6 +590,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'production-profile',
@@ -1230,17 +1232,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         varName: "totalRev",
         textName: "Total Revenue($)"
       }, {
-        varName: "totalCost",
-        textName: "Total Cost($)"
-      }, {
         varName: "payBackPeriod",
         textName: "Payback Period (Month)"
-      }, {
-        varName: "profitIndex",
-        textName: "Profitability Index"
-      }, {
-        varName: "investReturn",
-        textName: "Return on Investment (%)"
       }, {
         varName: "npv",
         textName: "NPV (%)"
@@ -7809,7 +7802,19 @@ var render = function() {
               _vm._v(" "),
               _c("td"),
               _vm._v(" "),
-              _c("td"),
+              _c("td", { staticStyle: { "font-weight": "bolder" } }, [
+                _c(
+                  "p",
+                  {
+                    staticStyle: {
+                      margin: "0",
+                      padding: "0",
+                      "font-weight": "bolder"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.well.totalNcfValue()))]
+                )
+              ]),
               _vm._v(" "),
               _vm._l(_vm.well.npvs, function(npv, c) {
                 return _c(
@@ -8756,7 +8761,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("h2", [_vm._v("Economic Analysis")]),
+      _c("h4", [_vm._v("Economic Analysis")]),
       _vm._v(" "),
       _c("table", [
         _c("thead", [
@@ -23964,6 +23969,17 @@ var Well = /*#__PURE__*/function () {
       var module3 = this.prodProfile[i].time;
       var npvValue = (module1 / Math.pow(module2, module3)).toFixed(4);
       return !isNaN(npvValue) ? npvValue : '';
+    }
+  }, {
+    key: "totalNcfValue",
+    value: function totalNcfValue() {
+      var value = 0;
+
+      for (var i = 0; i < this.prodProfile.length; i++) {
+        value += parseInt(this.prodProfile[i].ncf);
+      }
+
+      return value;
     }
   }, {
     key: "totalNpvValue",

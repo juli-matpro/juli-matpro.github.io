@@ -110,7 +110,7 @@
             </article>
         </div>
 
-        <h2>Economic Analysis</h2>
+        <h4>Economic Analysis</h4>
         <table>
             <thead>
             <tr>
@@ -157,10 +157,7 @@
             return {
                 econsParams: [
                     {varName: "totalRev", textName: "Total Revenue($)"},
-                    {varName: "totalCost", textName: "Total Cost($)"},
                     {varName: "payBackPeriod", textName: "Payback Period (Month)"},
-                    {varName: "profitIndex", textName: "Profitability Index"},
-                    {varName: "investReturn", textName: "Return on Investment (%)"},
                     {varName: "npv", textName: "NPV (%)"},
                 ],
                 chartOptions: {

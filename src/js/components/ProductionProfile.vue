@@ -44,7 +44,9 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
+                <td style="font-weight: bolder;">
+                    <p style="margin: 0; padding: 0;font-weight: bolder;">{{ well.totalNcfValue() }}</p></td>
+
                 <td style="font-weight: bolder;" v-for="(npv, c) in well.npvs" :key = "c">
                     <p style="margin: 0; padding: 0;font-weight: bolder;">{{ well.totalNpvValue(npv) }}</p></td>
             </tr>
