@@ -39,7 +39,7 @@
 <!--                <td v-for="(npv, b) in well.npvs" :key = "b">{{ well.npvValue(i, npv) }}</td>-->
             </tr>
             <tr>
-                <td style="font-weight: bolder;"><p style="margin: 0; padding: 0;font-weight: bolder;">Total NPV</p></td>
+                <td style="font-weight: bolder;"><p style="margin: 0; padding: 0;font-weight: bolder;">Total </p></td>
                 <td></td>
                 <td></td>
                 <td></td>
