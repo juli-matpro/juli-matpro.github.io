@@ -19,7 +19,7 @@
 <!--        <production-chart :well="well" :key="well.yearlyCostUpdate"/>-->
 
         <br/>
-        <button name="submit" type="submit" class="special" id="submitwell" data-wellid="1">Add Well</button>
+        <button name="submit" type="submit" class="special" id="submitwell" data-wellid="1">Add Welll</button>
     </form>
 </template>
 
