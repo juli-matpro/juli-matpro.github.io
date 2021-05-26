@@ -132,9 +132,9 @@
         <br/>
 
 
+<!--        <production-bar :wellAnalyzer="wellAnalyzer"/>-->
 
         <production-chart :wellAnalyzer="wellAnalyzer" :analyze="true"/>
-
 
         <div style="text-align: end">
             <a href="/" class="special button">Analyze Other Wells</a>
@@ -146,11 +146,13 @@
     import WellAnalyzer from "../models/WellAnalyzer";
     import store from "../stores/store";
     import ProductionChart from "./ProductionChart";
+    import ProductionBar from "./ProductionBar";
 
     export default {
 
         components: {
             ProductionChart,
+            ProductionBar,
         },
 
         data() {

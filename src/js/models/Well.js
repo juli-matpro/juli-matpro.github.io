@@ -355,7 +355,7 @@ export default class Well {
         let tens = 0;
         for(let i = 1; i<= totalLabel; i++) {
             tens++;
-            if(tens == 7) {
+            if(tens == 1) {
                 npvs.push(`${i * 10}%`);
                 tens = 0;
             } else {

@@ -22,24 +22,15 @@
         },
 
         created() {
-            // let npvs = [];
-            // console.log(this.well.npvs.length);
-            // for(let i = 0; i < this.well.npvs.length; i++) {
-            //     npvs.push(`${this.well.npvs[i].value}%`);
-            //     console.log(this.well.npvs[i].value);
-            // }
-            // console.log('labels');
-            // console.log(npvs);
-            // this.npvs = npvs;
         },
 
         data() {
             return {
                 data: {
                     // labels: this.labels(),
-                    labels: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
+                    labels: ['XS', 'S', 'M', 'L'],
                     // series: this.series(),
-                    series: [20, 60, 120, 200, 180, 20, 10],
+                    series: [20, 60, 120, 80],
                 },
                 options: {
                     distributeSeries: true,
@@ -80,6 +71,43 @@
 </script>
 
 <style>
+
+    .ct-bar{
+        stroke-width: 100px;
+    }
+
+    .ct-series-a {
+        stroke: #71A28A;
+    }
+    .ct-series-b {
+        stroke: #FF6414;
+    }
+    .ct-series-c {
+        stroke: #FF6414
+    }
+    .ct-series-d {
+        stroke: #EFB200;
+    }
+
+    /*.ct-bar:nth-of-type(4n+1) {*/
+    /*    stroke: #71A28A;*/
+    /*}*/
+
+    /*.ct-bar:nth-of-type(4n+2) {*/
+    /*    stroke: #FF6414;*/
+    /*}*/
+    /*.ct-bar:nth-child(2) {*/
+    /*    stroke: #FF6414 !important;*/
+    /*}*/
+
+    /*.ct-bar:nth-of-type(4n+3) {*/
+    /*    stroke: #EFB200;*/
+    /*}*/
+
+    /*.ct-bar:nth-of-type(4n+4) {*/
+    /*    stroke: #91A453;*/
+    /*}*/
+
     @keyframes dashoffset-seven {
         0% {
             stroke-dashoffset: 7px;

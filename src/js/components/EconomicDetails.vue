@@ -27,7 +27,7 @@
                     <button @click="addNpv" type="button" class="special"
                             style="background: #5a5a5a; display: inline; width: 110px;" :disabled="disabled">+ Add NPV
                     </button>
-                    <button  v-if="!disabled" @click="well.npvs = []" type="button" class="special"
+                    <button  v-if="!disabled" @click="well.npvs.pop()" type="button" class="special"
                             style="background: #c04000; display: inline; width: 110px;">-Clear NPV
                     </button>
 
