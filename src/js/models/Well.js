@@ -47,12 +47,14 @@ export default class Well {
      * @param cac
      * @param op
      * @param yearlyCostUpdate
+     * @param tax
+     * @param royal
      * @param months
      *
      * @return void Return value description.
      */
     // constructor(name, feas, rfac, pias, sr, gpl, gpi, pi, wdi, mi, alr, aod, lwi, cpi, whr, sc, lc, cac, op, months) {
-    constructor(name, rt, rr, wbr, fvf, vis, pd, permbs, permas, perk, skinbs, skinas, perskinas, prbs, declineType, qa, di, b, workOverComplex, gpl, gpi, pi, wdi, mi, alr, aod, lwi, cpi, whr, ic, yearlyOperateCost, npvs, lc, cac, op, yearlyCostUpdate, months) {
+    constructor(name, rt, rr, wbr, fvf, vis, pd, permbs, permas, perk, skinbs, skinas, perskinas, prbs, declineType, qa, di, b, workOverComplex, gpl, gpi, pi, wdi, mi, alr, aod, lwi, cpi, whr, ic, yearlyOperateCost, npvs, lc, cac, op, yearlyCostUpdate, tax, royal, months) {
         this.name = name;
         this.rt = rt;
         this.rr = rr;
@@ -89,6 +91,8 @@ export default class Well {
         this.cac = cac;
         this.op = op;
         this.yearlyCostUpdate = yearlyCostUpdate;
+        this.tax = tax;
+        this.royal = royal;
         this.months = months;
     }
 
@@ -201,16 +205,6 @@ export default class Well {
         return (!isNaN(rfacas)) ? rfacas : '';
     }
 
-    get febs() {
-        let febs = this.pibs / this.pideal;
-        return (!isNaN(febs)) ? febs : '';
-    }
-
-    get feas() {
-        let feas = this.pias / this.pideal;
-        return (!isNaN(feas)) ? feas : '';
-    }
-
     get cof() {
         return ((10 * this.gpl)
             + (9 * this.gpi)
@@ -241,13 +235,15 @@ export default class Well {
             relProd = (this.pras /this.di)  * Math.log(this.pras/ this.pras);
         }
 
+        relProd = relProd.toFixed(4)
+
         return (!isNaN(relProd)) ? relProd : '';
     }
 
     get timeAbandon() {
         let timeAbandon;
         if( this.di > 0) {
-            timeAbandon = ((1 / this.di) * (Math.log(this.pras / this.qa))) / 365;
+            timeAbandon = (((1 / this.di) * (Math.log(this.pras / this.qa))) / 365).toFixed(4);
         }
         return (!isNaN(timeAbandon)) ? timeAbandon : '';
     }
@@ -271,11 +267,20 @@ export default class Well {
 
                 let revenueValue = (production * this.op).toFixed(4);
                 let revenue = (!isNaN(revenueValue)) ? revenueValue : '';
+
+
                 let ncfValue = (i == 0) ? (-1 * this.ic) : (revenue - this.yearlyOperateCost[i]).toFixed(4);
                 let ncf = (!isNaN(ncfValue)) ? ncfValue : '';
 
+                //
+                let tax = (!isNaN(revenueValue)) ? (this.tax * revenue / 100).toFixed(4) : '';
+                let royal = (!isNaN(revenueValue)) ? (this.royal * revenue / 100).toFixed(4) : '';
+                // let royal = (this.royal * revenue / 100).toFixed(4);
+
+
                 prevProdRate = prodRate;
-                prodProfile.push({'time' : time, 'prodRate' : prodRate, 'production' : production, 'revenue' : revenue, 'ncf' : ncf, })
+                // prodProfile.push({'time' : time, 'prodRate' : prodRate, 'production' : production, 'revenue' : revenue, 'ncf' : ncf})
+                prodProfile.push({'time' : time, 'prodRate' : prodRate, 'production' : production, 'revenue' : revenue, 'ncf' : ncf, 'tax' : tax, 'royal': royal})
             }
         }
         return prodProfile;
@@ -350,7 +355,7 @@ export default class Well {
         let tens = 0;
         for(let i = 1; i<= totalLabel; i++) {
             tens++;
-            if(tens == 10) {
+            if(tens == 7) {
                 npvs.push(`${i * 10}%`);
                 tens = 0;
             } else {

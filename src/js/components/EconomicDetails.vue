@@ -8,6 +8,12 @@
             <article>
                 Oil Price($)<input v-model="well.op" placeholder="Oil Price" type="text" :disabled="disabled" required/>
             </article>
+            <article>
+                Tax(%)<input v-model="well.tax" placeholder="Tax (%)" type="text" :disabled="disabled" required/>
+            </article>
+            <article>
+                Royalties(%)<input v-model="well.royal" placeholder="Royalties (%)" type="text" :disabled="disabled" required/>
+            </article>
         </div>
 
         <br>

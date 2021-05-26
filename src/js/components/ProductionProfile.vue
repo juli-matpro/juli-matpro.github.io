@@ -7,9 +7,11 @@
                 <th>Time (Yrs)</th>
                 <th>Production Rate (bbl/d)</th>
                 <th>Production (bbl)</th>
-                <th>Yearly Operating Cost ($)</th>
                 <th>Yearly Revenue ($)</th>
+                <th>Taxes ($)</th>
+                <th>Royalties ($)</th>
                 <th>NCF ($)</th>
+                <th>Yearly Operating Cost ($)</th>
 
                 <th v-for="(npv, i) in well.npvs" :key = "i">NPV ({{ npv.value }}%)</th>
             </tr>
@@ -19,6 +21,10 @@
                 <td>Year {{ profile.time }}</td>
                 <td>{{ profile.prodRate }}</td>
                 <td>{{ profile.production }}</td>
+                <td>{{ profile.revenue }}</td>
+                <td>{{ profile.tax }}</td>
+                <td>{{ profile.royal }}</td>
+                <td>{{ profile.ncf }}</td>
                 <td style="min-width: 140px;">
                     <input
                         type="text"
@@ -29,8 +35,7 @@
                         :disabled="disabled"
                         required />
                 </td>
-                <td>{{ profile.revenue }}</td>
-                 <td>{{ profile.ncf }}</td>
+
 <!--                <td>{{ // well.prodProfile[i].ncf }}</td>-->
 
 <!--                Each of the <td> Below represents Each NPV for Each Column-->
@@ -40,6 +45,8 @@
             </tr>
             <tr>
                 <td style="font-weight: bolder;"><p style="margin: 0; padding: 0;font-weight: bolder;">Total </p></td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
