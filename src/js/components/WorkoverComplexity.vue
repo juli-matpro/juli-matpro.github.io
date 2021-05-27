@@ -1,8 +1,8 @@
 <template>
     <div>
         <article>
-            <input type="checkbox" id="workOverComplexity" v-model="well.workOverComplex">
-            <label for="workOverComplexity">Calculate Workover Complexity</label>
+            <input type="checkbox" :id="'ii' + well.name" v-model="well.workOverComplex">
+            <label :for="'ii' + well.name">Calculate Workover Complexity</label>
         </article>
 
         <h4 v-if="well.workOverComplex">Workover Complexity..</h4>

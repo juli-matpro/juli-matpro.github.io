@@ -15,13 +15,14 @@ export default class WellAnalyzer {
     constructor(unOrderedWells) {
         let orderedWells = [];
 
+        this.unOrderedWells = [...unOrderedWells];
         for (let i = 0; unOrderedWells.length > 0; i++) {
             let highestRelProdValue = unOrderedWells.reduce(function (highestWell, well) {
                 return (highestWell.relProd || 0) >= well.relProd ? highestWell : well;
             }, {});
 
             orderedWells.push(highestRelProdValue);
-            const highestRelProd = (element) => element.pibs === highestPibsValue.rel;
+            const highestRelProd = (element) => element.relProd === highestRelProdValue.relProd;
             unOrderedWells.splice(unOrderedWells.findIndex(highestRelProd), 1); //the problem is coming from here splicing the array will mess with it at the store, but it works now bcos i  deep copy it first
         }
 
@@ -48,7 +49,18 @@ export default class WellAnalyzer {
     }
 
     economicRank() {
+        let econsRank = [];
+        let unOrderedWells = [...this.wells];
+        for (let i = 0; unOrderedWells.length > 0; i++) {
+            let highestEconsValue = unOrderedWells.reduce(function (highestWell, well) {
+                return (highestWell.npvTens || 0) >= well.npvTens ? highestWell : well;
+            }, {});
 
+            econsRank.push(highestEconsValue);
+            const highestEcons = (element) => element.npvTens === highestEconsValue.npvTens;
+            unOrderedWells.splice(unOrderedWells.findIndex(highestEcons), 1); //the problem is coming from here splicing the array will mess with it at the store, but it works now bcos i  deep copy it first
+        }
+        return econsRank;
     }
 
     chartDataPoints() {

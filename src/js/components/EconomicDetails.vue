@@ -14,6 +14,19 @@
             <article>
                 Royalties(%)<input v-model="well.royal" placeholder="Royalties (%)" type="text" :disabled="disabled" required/>
             </article>
+            <article>
+                Choose Type of Operation Cost:
+                <label for="declineType"></label>
+                <select name="declineType" id="declineType" v-model="well.costType" v-on:change="update()">
+                    <option value="percent" selected="selected">Percentage of Revenue</option>
+                    <option value="custom">Custom Cost</option>
+                </select>
+            </article>
+
+            <article v-if="well.costType === 'percent'" :key="updateCost">
+                Operation Cost(%)<input v-model="well.operate" placeholder="Operation Cost(%)" type="text" :disabled="disabled" required/>
+            </article>
+
         </div>
 
         <br>
@@ -28,7 +41,7 @@
                             style="background: #5a5a5a; display: inline; width: 110px;" :disabled="disabled">+ Add NPV
                     </button>
                     <button  v-if="!disabled" @click="well.npvs.pop()" type="button" class="special"
-                            style="background: #c04000; display: inline; width: 110px;">-Clear NPV
+                            style="background: #c04000; display: inline; width: 110px;">- Clear NPV
                     </button>
 
                 </div>
@@ -51,6 +64,7 @@
         data() {
             return {
                 currentNpv: '',
+                updateCost: 0,
             }
         },
 
@@ -58,8 +72,15 @@
             addNpv() {
                 this.well.npvs = this.well.npvs.concat({'value': this.currentNpv});
                 this.currentNpv = '';
-                this.well.yearlyCostUpdate++;
+                this.well.profileUpdate++;
+                this.well.updateChart++;
             },
+
+            update () {
+                this.updateCost++;
+                this.well.profileUpdate++;
+                this.well.updateChart++;
+            }
         }
 
     }

@@ -3,13 +3,13 @@
     <h4>Technical Parameters..</h4>
     <div class="flex flex-4">
         <article>
-            PI(B/S)<input :value="well.pibs" type="text" required disabled/>
+            PI(B/S) (psi)<input :value="well.pibs" type="text" required disabled/>
         </article>
         <article>
-            PI(A/S)<input :value="well.pias" type="text" required disabled/>
+            PI(A/S) (psi)<input :value="well.pias" type="text" required disabled/>
         </article>
         <article>
-            PI Ideal<input :value="well.pideal" type="text" required disabled/>
+            PI Ideal (bbl/psi)<input :value="well.pideal" type="text" required disabled/>
         </article>
         <article>
             FE(B/S)<input :value="well.febs" type="text" required disabled/>

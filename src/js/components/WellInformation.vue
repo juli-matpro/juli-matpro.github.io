@@ -6,13 +6,13 @@
                 Name of Well<input v-model="well.name" placeholder="Name of Well" type="text" :disabled="disabled" required/>
             </article>
             <article>
-                Re (Reservoir Radius)<input v-model="well.rr" placeholder="Re (Reservoir Radius)" type="text" :disabled="disabled"  required/>
+                Re (Reservoir Radius (ft))<input v-model="well.rr" placeholder="Re (Reservoir Radius)" type="text" :disabled="disabled"  required/>
             </article>
             <article>
-                Rw (Well Bore radius)<input v-model="well.wbr" placeholder="Rw (Well Bore radius)" type="text"  :disabled="disabled" required/>
+                Rw (Well Bore radius (ft))<input v-model="well.wbr" placeholder="Rw (Well Bore radius)" type="text"  :disabled="disabled" required/>
             </article>
             <article>
-                Bo (Formation volume factor)<input v-model="well.fvf" placeholder="Bo (Formation volume factor)" type="text"  :disabled="disabled" required/>
+                Bo (Formation volume factor (rb/stb))<input v-model="well.fvf" placeholder="Bo (Formation volume factor)" type="text"  :disabled="disabled" required/>
             </article>
             <article>
                 μ (Viscocity)<input v-model="well.vis" placeholder="μ (Viscocity)" type="text"  :disabled="disabled" required/>
@@ -21,7 +21,7 @@
                 H(Reservoir Thickness)<input v-model="well.rt" placeholder="H(Reservoir Thickness)" type="text"  :disabled="disabled" required/>
             </article>
             <article>
-                Pr-Pwf (Pressure Drop)<input v-model="well.pd" placeholder="Pr-Pwf (Pressure Drop)" type="text"  :disabled="disabled" required />
+                Pr-Pwf (Pressure Drop (psi))<input v-model="well.pd" placeholder="Pr-Pwf (Pressure Drop)" type="text"  :disabled="disabled" required />
             </article>
             <article>
                 K(b/s) (Permeability)<input v-model="well.permbs" placeholder="K(b/s) (Permeability)" type="text" @input="checkPermeability"  :disabled="disabled" required/>
@@ -43,7 +43,7 @@
                 Percentage of Skin a/s<input v-model="well.perskinas" placeholder="Percentage of Skin a/s" type="text"  :disabled="disabled" @input="checkSkinPercentage" required/>
             </article>
             <article>
-                Q(b/s) (Production rate b/s)<input v-model="well.prbs" placeholder="Q(b/s) (Production rate b/s)"  :disabled="disabled" type="text" required/>
+                Q(b/s) (Production rate (bbl/d))<input v-model="well.prbs" placeholder="Q(b/s) (Production rate b/s)"  :disabled="disabled" type="text" required/>
             </article>
         </div>
         <br/>

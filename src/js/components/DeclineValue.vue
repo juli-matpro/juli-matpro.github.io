@@ -26,7 +26,7 @@
             </article>
 
             <article>
-                Np (Relative Production)<input :value="well.relProd" placeholder="Np (Relative Production)" type="text"
+                Np (Cumulative Production (bbls))<input :value="well.relProd" placeholder="Np (Relative Production)" type="text"
                                                required disabled/>
             </article>
             <article>

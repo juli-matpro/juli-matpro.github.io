@@ -27,10 +27,10 @@
         data() {
             return {
                 data: {
-                    // labels: this.labels(),
-                    labels: ['XS', 'S', 'M', 'L'],
-                    // series: this.series(),
-                    series: [20, 60, 120, 80],
+                    labels: this.labels(),
+                    // labels: ['XS', 'S', 'M', 'L'],
+                    series: this.series(),
+                    // series: [20, 60, 120, 80],
                 },
                 options: {
                     distributeSeries: true,
@@ -47,24 +47,20 @@
         methods: {
             series()  {
                 let series = [];
-                if(this.analyze == true) {
-                    this.wellAnalyzer.wells.forEach((well) =>{
-                        well.seriesPlot().forEach((singular) => {
-                            series.push(singular);
-                        });
-                    });
-                    return series;
-                } else {
-                    return this.well.seriesPlot();
-                }
+                this.wellAnalyzer.wells.forEach((well) =>{
+                    series.push(well.relProd);
+                });
+                console.log('proddddd' + series);
+                return series;
             },
 
             labels() {
-                if(this.analyze == true) {
-                    return this.wellAnalyzer.wells[1].labelsPlot()
-                } else {
-                    return this.well.labelsPlot();
-                }
+                let labels = [];
+                this.wellAnalyzer.wells.forEach((well) =>{
+                    labels.push(well.name);
+                });
+                return labels;
+
             }
         },
     };
@@ -77,16 +73,16 @@
     }
 
     .ct-series-a {
-        stroke: #71A28A;
+        stroke: #8B0000;
     }
     .ct-series-b {
-        stroke: #FF6414;
+        stroke: #00a86b;
     }
     .ct-series-c {
-        stroke: #FF6414
+        stroke: #FF6414;
     }
     .ct-series-d {
-        stroke: #EFB200;
+        stroke: #004953;
     }
 
     /*.ct-bar:nth-of-type(4n+1) {*/
