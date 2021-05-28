@@ -15,19 +15,19 @@
                 Bo (Formation volume factor (rb/stb))<input v-model="well.fvf" placeholder="Bo (Formation volume factor)" type="text"  :disabled="disabled" required/>
             </article>
             <article>
-                μ (Viscocity)<input v-model="well.vis" placeholder="μ (Viscocity)" type="text"  :disabled="disabled" required/>
+                μ (Viscocity(cp))<input v-model="well.vis" placeholder="μ (Viscocity)" type="text"  :disabled="disabled" required/>
             </article>
             <article>
-                H(Reservoir Thickness)<input v-model="well.rt" placeholder="H(Reservoir Thickness)" type="text"  :disabled="disabled" required/>
+                H(Reservoir Thickness (ft))<input v-model="well.rt" placeholder="H(Reservoir Thickness)" type="text"  :disabled="disabled" required/>
             </article>
             <article>
                 Pr-Pwf (Pressure Drop (psi))<input v-model="well.pd" placeholder="Pr-Pwf (Pressure Drop)" type="text"  :disabled="disabled" required />
             </article>
             <article>
-                K(b/s) (Permeability)<input v-model="well.permbs" placeholder="K(b/s) (Permeability)" type="text" @input="checkPermeability"  :disabled="disabled" required/>
+                K(b/s) (Permeability(md))<input v-model="well.permbs" placeholder="K(b/s) (Permeability)" type="text" @input="checkPermeability"  :disabled="disabled" required/>
             </article>
             <article>
-                K(a/s) (Permeability)<input v-model="well.permas" placeholder="K(a/s) (Permeability)" type="text" @input="checkPermeability"  :disabled="disabled" required/>
+                K(a/s) (Permeability(md))<input v-model="well.permas" placeholder="K(a/s) (Permeability)" type="text" @input="checkPermeability"  :disabled="disabled" required/>
             </article>
 
             <article>

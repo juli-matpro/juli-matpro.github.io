@@ -14,11 +14,11 @@
         </div>
         <div class="flex flex-4">
             <article>
-                Qa (Abandonment Rate)<input v-model="well.qa" placeholder="Qa (Abandonment Rate)" type="text" :disabled="disabled" required/>
+                Qa (Abandonment Rate(bbl/d))<input v-model="well.qa" placeholder="Qa (Abandonment Rate)" type="text" :disabled="disabled" required/>
             </article>
 
             <article>
-                Di (Decline Rate)<input v-model="well.di" placeholder="Di (Decline Rate)" type="text" :disabled="disabled" required/>
+                Di (Decline Rate(per day))<input v-model="well.di" placeholder="Di (Decline Rate)" type="text" :disabled="disabled" required/>
             </article>
 
             <article v-if="well.declineType == 'Hyperbolic'">
