@@ -101,7 +101,7 @@
 
         created() {
             this.initializeWellValues();
-            // this.well.months = this.months;
+            // // this.well.months = this.months;
             // let well1 = new Well("WELL XX 01", 55, 1500, 0.03, 1.47, 0.8117, 473.5, 187, 364, 415.51, 18, 3, 44, 2200, "Exponential", 250, 0.000519, 12, 0, 0, 0, 0, 5, 0, 1, 1, 0, 0, 0, 70503150, [1000000,1000000,1000000],[{'value' : 0},{'value' : 20},{'value' : 30},], 5,4,55, 0, 25, 5, 35, 'percent', 34,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
             // let well2 = new Well("WELL XX 02", 41, 1500, 0.03, 1.14, 1.434, 202.8, 106, 418, 415.51, 20, 0.33, 44, 592, "Exponential", 250, 0.000568, 12, 1, 0, 0, 5, 0, 2, 1, 0, 0, 0, 5,20024840,[1000000,1000000,1000000],[{'value': 10}, {'value': 20}, {'value': 30},{'value': 40},{'value': 50}], 5,4,55, 0,25, 5, 35, 'percent',  0,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
             // // this.well = well1;
