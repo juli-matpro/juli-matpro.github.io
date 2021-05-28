@@ -24,7 +24,7 @@
 <!--        </div>-->
 
 <!--    </div>-->
-    <p>{{ irr }}</p>
+    <span>{{ irr }}</span>
 </template>
 
 <script>

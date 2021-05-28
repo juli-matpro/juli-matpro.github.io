@@ -16,7 +16,7 @@
 
         <production-chart :well="well" v-if="well.labelsPlot().length > 1" :key="well.updateChart +'ddd'"/>
 <!---->
-        <irr-value :well="well" v-if="well.prodProfile.length > 1" :key="well.irrUpdate"/>
+        <span style="font-weight: 600;">Irr Value: </span><irr-value :well="well" v-if="well.prodProfile.length > 1" :key="well.irrUpdate"/><br/>
 
         <button type="button" class="special" data-wellid="1" v-if="disabled == true" v-on:click.prevent="disabled = false">Edit Well</button>
         <button type="button" class="special" data-wellid="1" style="background: green" v-if="disabled !== true" v-on:click.prevent="disabled = true">Save Well</button>
