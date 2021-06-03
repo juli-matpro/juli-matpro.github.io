@@ -60,7 +60,7 @@
 
         methods: {
             async irrValue(well, a) {
-                for(let i = 0; i < 120; i+=0.05) {
+                for(let i = 0; i < 120; i+=0.5) {
                     let val = well.totalNpvValue({'value': i});
                     // console.log(val);
                     if(val < 0) {

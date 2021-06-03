@@ -102,16 +102,16 @@
 
         created() {
             this.initializeWellValues();
-            // this.well.months = this.months;
-            // let well1 = new Well("WELL XX 01", 55, 1500, 0.03, 1.47, 0.8117, 473.5, 187, 364, 415.51, 18, 3, 44, 2200, "Exponential", 250, 0.000519, 12, 0, 0, 0, 0, 5, 0, 1, 1, 0, 0, 0, 70503150, [1000000,1000000,1000000],[{'value' : 0},{'value' : 20},{'value' : 30},], 5,4,55, 0, 25, 5, 35, 'percent', 34,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
-            // let well2 = new Well("WELL XX 02", 41, 1500, 0.03, 1.14, 1.434, 202.8, 106, 418, 415.51, 20, 0.33, 44, 592, "Exponential", 250, 0.000568, 12, 1, 0, 0, 5, 0, 2, 1, 0, 0, 0, 5,20024840,[1000000,1000000,1000000],[{'value': 10}, {'value': 20}, {'value': 30},{'value': 40},{'value': 50}], 5,4,55, 0,25, 5, 35, 'percent',  0,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
-            // // this.well = well1;
-            // let well3 = new Well("WELL XX 03", 50, 1500, 0.03, 1.72, 1.327, 583.5, 65, 262, 415.51, 15.4, 2, 44, 991, "Exponential", 250, 0.000547, 12, 0, 0, 0, 5, 6, 0, 1, 1, 0, 0, 5,30118300,[1000000,1000000,1000000],[{'value': 10}, {'value': 20}, {'value': 30},{'value': 40},{'value': 50}], 5,4,55, 0, 25, 5, 35, 'percent',  0,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
-            // let well4 = new Well("WELL XX 04", 30, 1500, 0.03, 1.4, 0.317, 241.3, 110, 165, 415.51, 13.2, 2, 44, 825, "Exponential", 250, 0.000533, 12, 0, 0, 0, 4, 6, 0, 1, 0, 0, 0, 4,25107170,[1000000,1000000,1000000],[{'value': 10}, {'value': 20}, {'value': 30},{'value': 40},{'value': 50}], 5,4,55, 0, 25, 5, 35, 'percent',  0,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
-            // store.commit('addToWell', well1);
-            // store.commit('addToWell', well2);
-            // store.commit('addToWell', well3);
-            // store.commit('addToWell', well4);
+            this.well.months = this.months;
+            let well1 = new Well("WELL XX 01", 55, 1500, 0.03, 1.47, 0.8117, 473.5, 187, 364, 415.51, 18, 3, 44, 2200, "Exponential", 250, 0.000519, 12, 0, 0, 0, 0, 5, 0, 1, 1, 0, 0, 0, 70503150, [1000000,1000000,1000000],[{'value' : 0},{'value' : 20},{'value' : 30},], 5,4,55, 0, 25, 5, 35, 'percent', 34,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
+            let well2 = new Well("WELL XX 02", 41, 1500, 0.03, 1.14, 1.434, 202.8, 106, 418, 415.51, 20, 0.33, 44, 592, "Exponential", 250, 0.000568, 12, 1, 0, 0, 5, 0, 2, 1, 0, 0, 0, 5,20024840,[1000000,1000000,1000000],[{'value': 10}, {'value': 20}, {'value': 30},{'value': 40},{'value': 50}], 5,4,55, 0,25, 5, 35, 'percent',  0,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
+            // this.well = well1;
+            let well3 = new Well("WELL XX 03", 50, 1500, 0.03, 1.72, 1.327, 583.5, 65, 262, 415.51, 15.4, 2, 44, 991, "Exponential", 250, 0.000547, 12, 0, 0, 0, 5, 6, 0, 1, 1, 0, 0, 5,30118300,[1000000,1000000,1000000],[{'value': 10}, {'value': 20}, {'value': 30},{'value': 40},{'value': 50}], 5,4,55, 0, 25, 5, 35, 'percent',  0,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
+            let well4 = new Well("WELL XX 04", 30, 1500, 0.03, 1.4, 0.317, 241.3, 110, 165, 415.51, 13.2, 2, 44, 825, "Exponential", 250, 0.000533, 12, 0, 0, 0, 4, 6, 0, 1, 0, 0, 0, 4,25107170,[1000000,1000000,1000000],[{'value': 10}, {'value': 20}, {'value': 30},{'value': 40},{'value': 50}], 5,4,55, 0, 25, 5, 35, 'percent',  0,[{'value': 54},{'value': 6},{'value': 66},{'value': 52},{'value': 55}]);
+            store.commit('addToWell', well1);
+            store.commit('addToWell', well2);
+            store.commit('addToWell', well3);
+            store.commit('addToWell', well4);
         }
     }
 </script>
