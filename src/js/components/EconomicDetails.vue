@@ -3,19 +3,19 @@
         <h4>Economic Details..</h4>
         <div class="flex flex-4">
             <article>
-                Investment (Cost)($)<input v-model="well.ic" placeholder="Investment (Cost)" type="text" :disabled="disabled" required/>
+                <span class="label">Investment (Cost)($)</span><input v-model="well.ic" placeholder="Investment (Cost)" type="text" :disabled="disabled" required/>
             </article>
             <article>
-                Oil Price($)<input v-model="well.op" placeholder="Oil Price" type="text" :disabled="disabled" required/>
+                <span class="label">Oil Price($)</span><input v-model="well.op" placeholder="Oil Price" type="text" :disabled="disabled" required/>
             </article>
             <article>
-                Tax(%)<input v-model="well.tax" placeholder="Tax (%)" type="text" :disabled="disabled" required/>
+                <span class="label">Tax(%)</span><input v-model="well.tax" placeholder="Tax (%)" type="text" :disabled="disabled" required/>
             </article>
             <article>
-                Royalties(%)<input v-model="well.royal" placeholder="Royalties (%)" type="text" :disabled="disabled" required/>
+                <span class="label">Royalties(%)</span><input v-model="well.royal" placeholder="Royalties (%)" type="text" :disabled="disabled" required/>
             </article>
             <article>
-                Choose Type of Operation Cost:
+                <span class="label">Choose Type of Operation Cost:</span>
                 <label for="declineType"></label>
                 <select name="declineType" id="declineType" v-model="well.costType" v-on:change="update()">
                     <option value="percent" selected="selected">Percentage of Revenue</option>
@@ -24,7 +24,7 @@
             </article>
 
             <article v-if="well.costType === 'percent'" :key="updateCost">
-                Operation Cost(%)<input v-model="well.operate" placeholder="Operation Cost(%)" type="text" :disabled="disabled" required/>
+                <span class="label">Operation Cost(%)</span><input v-model="well.operate" placeholder="Operation Cost(%)" type="text" :disabled="disabled" required/>
             </article>
 
         </div>

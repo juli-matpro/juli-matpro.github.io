@@ -11,6 +11,8 @@
 
 <script>
     import VueChartist from 'v-chartist';
+    import Chartist from "chartist";
+    import * as MyLegend from 'chartist-plugin-axistitle';
 
     export default {
         name: 'production-bar',
@@ -36,9 +38,27 @@
                     distributeSeries: true,
                     chartPadding: {
                         right: 40,
-                        left: 40
-                    },
+                        left: 70,
+                        bottom: 70,                    },
                     height: 500,
+                    plugins: [
+                        Chartist.plugins.ctAxisTitle({
+                            axisX: {
+                                axisTitle: "Wells",
+                                offset: {
+                                    x: 10,
+                                    y: 40
+                                },
+                            },
+                            axisY: {
+                                axisTitle: "Cummulative Production (Barrels)",
+                                offset: {
+                                    x: 0,
+                                    y: -20
+                                },
+                            }
+                        }),
+                    ]//End of plugins
                 },
             };
         },
