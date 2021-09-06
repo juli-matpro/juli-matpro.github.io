@@ -51,7 +51,7 @@
                                 },
                             },
                             axisY: {
-                                axisTitle: "Cummulative Production (Barrels)",
+                                axisTitle: "Cummulative Production (bbls)",
                                 offset: {
                                     x: 0,
                                     y: -20
